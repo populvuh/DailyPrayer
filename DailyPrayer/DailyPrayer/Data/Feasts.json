@@ -1,0 +1,1360 @@
+﻿{
+  "feasts": [
+    {
+      "feast": {
+        "name": "01/01",
+        "eTitle": "Mary Mother of God",
+        "vTitle": "Maria Mẹ Thiên Chúa",
+        "solemnityType": "Fixed Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "19/03",
+        "eTitle": "St. Joseph",
+        "vTitle": "Thánh Giu-se",
+        "solemnityType": "Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "25/03",
+        "eTitle": "Feast of Annunciation of the Lord",
+        "vTitle": "Le Truyền Tin",
+        "solemnityType": "Solemnity",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "29/04",
+        "eTitle": "St. Catherine of Siena",
+        "vTitle": "Thánh Ca-ta-ri-na Xi-ê-na, trinh nữ, tiến sĩ hội thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "false"
+      }
+    },
+    {
+      "feast": {
+        "name": "24/06",
+        "eTitle": "Nativity of Saint John the Baptist",
+        "vTitle": "Lễ sinh nhật thánh Gioan Tẩy Giả",
+        "solemnityType": "Fixed Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "29/06",
+        "eTitle": "Sts. Peter and Paul",
+        "vTitle": "Thánh Phê-rô và Phao-lô",
+        "solemnityType": "Fixed Solemnity",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "08/08",
+        "eTitle": "St. Dominic",
+        "vTitle": "Thánh phụ Đa-minh",
+        "solemnityType": "Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "15/08",
+        "eTitle": "Assumption of Our Lady",
+        "vTitle": "Lễ Đức Mẹ Lên Trời",
+        "solemnityType": "Fixed Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "01/11",
+        "eTitle": "All Saints",
+        "vTitle": " Lễ Các Thánh",
+        "solemnityType": "Solemnity",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "08/12",
+        "eTitle": "The Immaculate Conception of Our Lady",
+        "vTitle": "Lễ Đức Mẹ Vô Nhiễm",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    /*{
+      "feast": {
+        "name": "25/12",
+        "eTitle": "Christmas",
+        "vTitle": "Lễ Giáng Sinh",
+        "solemnityType": "Solemnity",
+        "prevEvening": "true"
+      }
+    },*/
+    {
+      "feast": {
+        "name": "26/12",
+        "eTitle": "St Stephen the first martyr",
+        "vTitle": "Thánh Stê-phan-nô, tử đạo tiên khởi",
+        "solemnityType": "Feast",
+        "prevEvening": "false"
+      }
+    },
+    {
+      "feast": {
+        "name": "27/12",
+        "eTitle": "St. John the Apostle/Evangelist",
+        "vTitle": "Gio-an tông đồ, thánh sử",
+        "solemnityType": "Feast",
+        "prevEvening": "false"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/12",
+        "eTitle": "Holy Innocents",
+        "vTitle": "Các thánh Anh Hài, tử đạo",
+        "solemnityType": "Feast",
+        "prevEvening": "false"
+      }
+    },
+    {
+      "feast": {
+        "name": "epiphany",
+        "eTitle": "Epiphany",
+        "vTitle": "Lễ Hiển Linh",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "baptism_of_the_lord",
+        "eTitle": "Baptism of the Lord",
+        "vTitle": "Lễ Chúa chịu phép rửa",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "ascension",
+        "eTitle": "Ascension",
+        "vTitle": "Lễ Thăng Thiên",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "pentecost",
+        "eTitle": "Pentecost",
+        "vTitle": "Lễ Chúa Thánh Thần Hiện Xuống",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "trinity",
+        "eTitle": "Trinity",
+        "vTitle": "Lễ Chúa Ba Ngôi",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "corpus_christi",
+        "eTitle": "Corpus Christi",
+        "vTitle": "Lễ Mình Máu Thánh Chúa",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "sacred_heart_jesus",
+        "eTitle": "Sacred Heart Jesus",
+        "vTitle": "Lễ Thánh Tâm Chúa",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "jesus_the_king",
+        "eTitle": "Jesus the King",
+        "vTitle": "Lễ Ki tô Vua",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "holy_family",
+        "eTitle": "Holy Family",
+        "vTitle": "Lễ Thánh Gia",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "false"
+      }
+    },
+    {
+      "feast": {
+        "name": "sacred_heart_mary",
+        "eTitle": "Sacred Heart Mary",
+        "vTitle": "Lễ Thánh Tâm Đức Mẹ",
+        "solemnityType": "MovingFeast",
+        "prevEvening": "false"
+      }
+    }
+  ]
+}
+
+
+
+/*
+    {
+      "feast": {
+        "name": "02/01",
+        "eTitle": "St. Basil the Great and St. Gregory Nazianzus",
+        "vTitle": "Thánh Basil Cả và Thánh Gregory Nazianzus",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/01",
+        "eTitle": "St. Zdislava de Lemberk",
+        "vTitle": "Thánh Do-di-la-va Be-ka",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "07/01",
+        "eTitle": "St. Raymond of Pennafort",
+        "vTitle": "Thánh Ray-mun-đô Pê-nha-pho",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "17/01",
+        "eTitle": "St. Anthony the Abbot",
+        "vTitle": "Thánh An-tôn, viện phụ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "18/01",
+        "eTitle": "St. Margaret of Hungary",
+        "vTitle": "Thánh Ma-ga-ri-ta, Hungary",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "20/01",
+        "eTitle": "St. Fabian",
+        "vTitle": "Thánh Fa-bi-a-nô giáo hoàng, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "21/01",
+        "eTitle": "St. Agnes",
+        "vTitle": "Thánh A-nê, trinh nữ, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "24/01",
+        "eTitle": "St. Francis de Sales",
+        "vTitle": "Thánh Phan-xi-cô đờ Xan, giám mục, tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "25/01",
+        "eTitle": "St. Paul",
+        "vTitle": "Thánh Phaolô tông đồ trở lại",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "26/01",
+        "eTitle": "St. Titus and St. Timothy",
+        "vTitle": "Thánh Ti-mô-thê và Thánh Ti-tô, giám mục ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "27/01",
+        "eTitle": "St. Angela Merici",
+        "vTitle": "Thánh An-giê-la Mê-ri-si, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/01",
+        "eTitle": "St. Thomas Aquinas",
+        "vTitle": "Thánh Tô-ma A-qui-nô, linh mục, tiến sĩ hội thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "31/01",
+        "eTitle": "St. John Don Bosco",
+        "vTitle": "Thánh Gio-an  đôn Bos-cô",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "02/02",
+        "eTitle": "Purification of Our Lady",
+        "vTitle": "dâng Chúa Giê su trong đền Thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "03/02",
+        "eTitle": "St. Blaise",
+        "vTitle": "Thánh Bô-la-xi-ô, giám mục, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/02",
+        "eTitle": "St. Catharina Ricci",
+        "vTitle": "Thánh Ca-ta-ri-na Ri-xi, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "05/02",
+        "eTitle": "St. Agatha",
+        "vTitle": "Thánh A-ga-ta, trinh nữ, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "06/02",
+        "eTitle": "St. Paul Miki",
+        "vTitle": "Thánh Phaolô Mi-ki và các bạn, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "08/02",
+        "eTitle": "St. Josephine Bakkita",
+        "vTitle": "Thánh Giô-sê-phi-na Ba-khi-ta, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "10/02",
+        "eTitle": "St. Scholastica",
+        "vTitle": "Cô-lat-ti-ca, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "12/02",
+        "eTitle": "-",
+        "vTitle": "Chân phước Rê-gi-nan-đô, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "13/02",
+        "eTitle": "St. Cyril and Methodius",
+        "vTitle": "Thánh Sy-ri-lô đan sĩ và thánh Mê-tô-đi-ô, giám mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "21/02",
+        "eTitle": "St. Peter Damian",
+        "vTitle": "Thánh Phê-rô Đa-mi-a-nô, giám mục, tiến sĩ Hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "22/02",
+        "eTitle": "St Peter's Chair at Rome",
+        "vTitle": "Lập Tông Tòa Thánh Phê-rô",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "23/02",
+        "eTitle": "St. Polycarp",
+        "vTitle": "Thánh Pô-ly-cáp, giám mục, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "04/03",
+        "eTitle": "St Casimir",
+        "vTitle": "Thánh Ca-xi-mia",
+        "solemnityType": "Memorial"
+      }
+    },
+    {
+      "feast": {
+        "name": "07/03",
+        "eTitle": "Sts. Perpetua and Felicity",
+        "vTitle": "Thánh Pe-pê-tu-a và thánh Phê-li-xi-a, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+	    {
+      "feast": {
+        "name": "07/04",
+        "eTitle": "St. John Baptist de la Salle",
+        "vTitle": "Thánh Gio-an Bao-ti-xi-a đờ la San",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "11/04",
+        "eTitle": "St. Stanislaus",
+        "vTitle": "Thánh Ta-nit-lao, giám mục, tử đạo",
+        "solemnityType": "Memorial"
+      }
+    },
+    {
+      "feast": {
+        "name": "20/04",
+        "eTitle": "St. Agnes of Montepulciano",
+        "vTitle": "Thánh A-nê Môn-tê-pun-cha-nô",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "25/04",
+        "eTitle": "St. Mark",
+        "vTitle": "Thánh Mac-cô",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "30/04",
+        "eTitle": "St. Pius V, Pope",
+        "vTitle": "Thánh Pi-ô, giáo hoàng",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "02/05",
+        "eTitle": "St. Athanasius",
+        "vTitle": "Thánh A-tha-xi-ô, giám mục, tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "03/05",
+        "eTitle": "St. Philip and St James",
+        "vTitle": "Thánh Phi-lip-phê và Thánh Gia-cô-bê tông đô",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "05/05",
+        "eTitle": "St. Vincent Ferie",
+        "vTitle": "Thánh Vinh-son Phê-ri-ê, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "08/05",
+        "eTitle": "-",
+        "vTitle": " Ðức Mẹ bảo trợ Dòng",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "10/05",
+        "eTitle": "St. Anthony",
+        "vTitle": "Thánh An-tô-ni-ô",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "13/05",
+        "eTitle": "St. Imelda Lambetini",
+        "vTitle": "Thánh I-men-đa Lam-bê-ti-ni, trinh nữ",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "14/05",
+        "eTitle": "St. Matthias",
+        "vTitle": "Thánh Mat-thi-a",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "19/05",
+        "eTitle": "Bl. Francis con Gita",
+        "vTitle": "Chân phước Phan-xi-cô Côn Ghi-ta, linh mục",
+        "solemnityType": "optional Memorial ",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "24/05",
+        "eTitle": "Feast of translation body of St Dominic",
+        "vTitle": "Lễ Cải Táng Thánh Phụ Đa Minh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "26/05",
+        "eTitle": "St. Philip Neri",
+        "vTitle": "Thánh Phi-lip-phê Nê-ri, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "31/05",
+        "eTitle": "Feast of Virgin Mary visiting St. Elisabeth",
+        "vTitle": "Lễ Đức Mẹ thăm viếng bà Thánh Isave",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "01/06",
+        "eTitle": "St. Justin Martyr",
+        "vTitle": "Thánh Giut-ti-nô, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "03/06",
+        "eTitle": "St. Charles Lwanga and Companions",
+        "vTitle": "Thánh Ca-rô-lô Loan-ga và các bạn, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/06",
+        "eTitle": "St. Peter Verona",
+        "vTitle": "Thánh Phê-rô Vê-rô-na, linh mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "05/06",
+        "eTitle": "St. Boniface of Mainz",
+        "vTitle": "Thánh Bô-ni-phat, giám mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "08/06",
+        "eTitle": "Bls. Diana and Cecilia",
+        "vTitle": "Chân phước Đi-a-na và Xe-xi-li-a",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "10/06",
+        "eTitle": "Bl. John Dominic",
+        "vTitle": "Chân phước Gio-an Đa Minh, giám mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "11/06",
+        "eTitle": "St. Barnabas",
+        "vTitle": "Thánh Bac-na-be, tông đô",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "13/06",
+        "eTitle": "St. Anthony of Padua",
+        "vTitle": "Thánh An-tôn Pa-đô-va, linh mục, tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "20/06",
+        "eTitle": "Bl. Margaret Ephne",
+        "vTitle": "Chân phước Mac-ga-ri-ta Ep-nê, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "21/06",
+        "eTitle": "St. Louis Gonzage",
+        "vTitle": "Thánh Lu-i Gon-za-ga, tu sĩ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/06",
+        "eTitle": "St. Irenaeus",
+        "vTitle": "Thánh I-rê-nê, giám mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+	
+    {
+      "feast": {
+        "name": "03/07",
+        "eTitle": "St. Thomas",
+        "vTitle": "Thánh Tô-ma, Tông đồ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "09/07",
+        "eTitle": "St. John of Cologne",
+        "vTitle": "Thánh Gio-an Cô-lô-ni-a, linh mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "11/07",
+        "eTitle": "St. Benedict of Nursia",
+        "vTitle": "Thánh Biển Đức, viện phụ",
+        "solemnityType": "Memorial"
+      }
+    },
+    {
+      "feast": {
+        "name": "15/07",
+        "eTitle": "St. Bonaventure",
+        "vTitle": "Thánh Bô-na-ven-tu-ra, giám mục tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "17/07",
+        "eTitle": "Bl. Ceslaus",
+        "vTitle": "Chân phước Xét-ta-lô, linh mục",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "22/07",
+        "eTitle": "St. Mary Magdelene",
+        "vTitle": "Thánh Ma-ria Ma-đa-lê-na",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "25/07",
+        "eTitle": "St. James the Greater",
+        "vTitle": "Thánh Gia-cô-bê, tông đồ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "26/07",
+        "eTitle": "Sts. Joachim and Anne",
+        "vTitle": "Thánh Gio-an-kim và thánh An-na",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "29/07",
+        "eTitle": "St Martha",
+        "vTitle": "Thánh Mac-ta",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "31/07",
+        "eTitle": "St. Ignatius Loyola",
+        "vTitle": "Thánh I-nha-xi-ô Lôi-ô-la, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "01/08",
+        "eTitle": "St. Alphonsus Marie Liguori",
+        "vTitle": "Thánh An-phong Ma-ria Li-go-ri,  giám mục tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "02/08",
+        "eTitle": "Bl. John Ada",
+        "vTitle": "Chân phước Gio-an A-da",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/08",
+        "eTitle": "St. John Vianney",
+        "vTitle": "Thánh Gio-an Vi-an-nê",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "06/08",
+        "eTitle": "Jesus's transfiguration",
+        "vTitle": "Lễ Chúa Giêsu hiển dung",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+	
+    {
+      "feast": {
+        "name": "10/08",
+        "eTitle": "St. Lawrence - Martyr",
+        "vTitle": "Thánh Lo-ren-so, pho tế tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "11/08",
+        "eTitle": "St. Clare",
+        "vTitle": "Thánh Co-la-ra, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "14/08",
+        "eTitle": "St. Maximilian Kolbe",
+        "vTitle": "Thánh Mac-xi-mi-li-a Kôn-bê, linh mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+	
+	
+    {
+      "feast": {
+        "name": "17/08",
+        "eTitle": "-",
+        "vTitle": "Thánh Gia-thinh, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "18/08",
+        "eTitle": "Bl. Maney",
+        "vTitle": "Chân phước Ma-nê, linh mục",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "20/08",
+        "eTitle": "St. Bernard of Clairvaux",
+        "vTitle": "Thánh Bê-na-đô, viện phụ tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "21/08",
+        "eTitle": "St. Pio X, Pope",
+        "vTitle": "Thánh Pi-ô, giáo hoàng",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "22/08",
+        "eTitle": "Mary the Queen",
+        "vTitle": "Đức Maria nữ vuong",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "23/08",
+        "eTitle": "St. Rosa Lima",
+        "vTitle": "Thánh Rô-sa Li-ma, trinh nữ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "24/08",
+        "eTitle": "St Bartholomew",
+        "vTitle": "Thánh Ba-tô-lô-mê-ô, tông đồ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "27/08",
+        "eTitle": "St. Monica",
+        "vTitle": "Thánh Mô-ni-ca",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/08",
+        "eTitle": "St. Augustine of Hippo",
+        "vTitle": "Thánh Au-gut-ti-nô, giám mục tiến sĩ hội thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "29/08",
+        "eTitle": "The Martyrdom of St. John the Baptist",
+        "vTitle": "Thánh Gioan Tẩy giả bị trảm quyết",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "02/09",
+        "eTitle": "St. Gregory, Pope",
+        "vTitle": "Thánh Giê-go-ri-ô, giáo hoàng tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "08/09",
+        "eTitle": "Birthday of Mary, Our Lady",
+        "vTitle": "Lễ sinh nhật của Đức Maria",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "13/09",
+        "eTitle": "St. John Chrysostom",
+        "vTitle": "Thánh Gio-an Kim-khau, giám mục tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "14/09",
+        "eTitle": "Adoration of Holy Cross",
+        "vTitle": "Suy tôn thánh giá",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "15/09",
+        "eTitle": "Our Lady of Pity",
+        "vTitle": "Đức Mẹ Sầu Bi",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "16/09",
+        "eTitle": "St. Cornelius and St. Cyprian, Bishop of Carthage",
+        "vTitle": "Thánh Cô-nê-li-ô và thánh Xip-ri-a-nô, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "18/09",
+        "eTitle": "St. John Macias",
+        "vTitle": "Thánh Gio-an Mai-san, tu sĩ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "20/09",
+        "eTitle": "Sts. Andrew Kim Taegon, Paul Chong Hasang, and Companions",
+        "vTitle": "Thánh An-dre Kim Ta-gon, Phao-lô chong Ha - san và các bạn, tử đạo ",
+        "solemnityType ": "Memorial ",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "21/09",
+        "eTitle": "St. Matthew",
+        "vTitle": "Thánh Mat-thêu, tông đồ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "23/09",
+        "eTitle": "St. Padre Pio",
+        "vTitle": "Thánh Pi-ô Pi-ết-ren-si-na, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "27/09",
+        "eTitle": "St. Vincent de Paul",
+        "vTitle": "Thánh Vinh-son Phao-lô, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/09",
+        "eTitle": "St. Lorenzo Ruiz and companions",
+        "vTitle": "Thánh Lo-ren-so Ru-i và các bạn, giáo dân tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "29/09",
+        "eTitle": "the Archangels St. Michael, St. Gabriel and St. Raphael",
+        "vTitle": "các tong lanh thiên than",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "30/09",
+        "eTitle": "St. Jerome",
+        "vTitle": "Thánh Giê-rô-mi-ô, linh mục tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "01/10",
+        "eTitle": "St. Therese of Lisieux",
+        "vTitle": "Thánh Tê-rê-sa Hai đồng Giê-su, tiến sĩ hội thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/10",
+        "eTitle": "St. Francis of Assisi",
+        "vTitle": "Thánh Phan-xi-cô At-zi-xi",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "05/10",
+        "eTitle": "Bl. Raymond of Capua",
+        "vTitle": "Chân phước Ray-mun-đô Ca-pu-a, linh mục",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "07/10",
+        "eTitle": "Our Lady of Rosary",
+        "vTitle": " Đức Mẹ Mân Côi",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "09/10",
+        "eTitle": "St. Louis Bertrand",
+        "vTitle": "Thánh Lu-i Bê-tran, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "15/10",
+        "eTitle": "St. Teresa of Avila",
+        "vTitle": "Thánh Tê-rê-sa Giê-su, tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "17/10",
+        "eTitle": "St. Ignatius of Antioch",
+        "vTitle": "Thánh I-nha-xi-ô An-ti-ô-khi-a, giám mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "18/10",
+        "eTitle": "St. Lucas",
+        "vTitle": "Thánh Lu-ca",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "28/10",
+        "eTitle": "St. Simon the Zealot and St. Jude Thaddaeus",
+        "vTitle": "Thánh Si-mon và thánh Giu-đa, tông đồ",
+        "solemnityType": " Feast",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "02/11",
+        "eTitle": "All Souls",
+        "vTitle": "Lễ Các Linh hồn",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "03/11",
+        "eTitle": "St. Martin de Porres",
+        "vTitle": "Thánh Mac-ti-nô Po-ret, tu sĩ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "04/11",
+        "eTitle": "St. Clarus",
+        "vTitle": "Thánh Ca-rô-lô Bô-rô-mê-ô, giám mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "06/11",
+        "eTitle": "Bl. Alphonsus",
+        "vTitle": "Chân phước An-phong Na-va-ret và các bạn, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "07/11",
+        "eTitle": "All Saints of OP",
+        "vTitle": "Các Thánh Dòng Giảng Thuyết ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "09/11",
+        "eTitle": "Dedication of the Basilica of our Saviour",
+        "vTitle": "Lễ Cung Hiến Thánh Đường La-tê-ra-nô",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "10/11",
+        "eTitle": "St. Leo the Great",
+        "vTitle": "Thánh Lê-ô Cả giáo hoàng tiến sĩ hội thánh",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "11/11",
+        "eTitle": "St. Martin",
+        "vTitle": "Thánh Mac-ti-nô, giám mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "12/11",
+        "eTitle": "St. Josaphat of Polotsk",
+        "vTitle": "Thánh Gio-sa-phat, giám mục tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "15/11",
+        "eTitle": "St. Albert the Great",
+        "vTitle": "Thánh An-be-tô Cả, giám mục tiến sĩ hội thánh",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "17/11",
+        "eTitle": "St. Elisabeth of Hungary",
+        "vTitle": "Thánh E-li-sa-bet Hung-ga-ry",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "21/11",
+        "eTitle": "Presentation of Our Lady",
+        "vTitle": "lễ Đức Mẹ dâng mình trong Đền thờ",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "22/11",
+        "eTitle": "St. Cecile",
+        "vTitle": "Thánh Xe-xi-li-a, trinh nữ tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "24/11",
+        "eTitle": "St. Andrew Tran and Companions",
+        "vTitle": "Thánh An-rê Dung Lạc và các bạn tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "30/11",
+        "eTitle": "St. Andrew",
+        "vTitle": "Thánh An-rê, tông đồ",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+
+    {
+      "feast": {
+        "name": "03/12",
+        "eTitle": "St. Francis Xavier",
+        "vTitle": "Thánh Phan-xi-cô Xa-vi-ê, linh mục",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "07/12",
+        "eTitle": "St. Ambrose",
+        "vTitle": "Thánh Am-rô-xi-ô, giám mục, tiến sĩ hội thánh",
+        "solemnityType": "optional Memorial",
+        "prevEvening": "true"
+      }
+    },
+	
+    {
+      "feast": {
+        "name": "13/12",
+        "eTitle": "St. Lucy",
+        "vTitle": "Thánh Lu-xi-a, trinh nữ, tử đạo",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+    {
+      "feast": {
+        "name": "14/12",
+        "eTitle": "St. John of the Cross",
+        "vTitle": "Thánh Gio-an thánh giá",
+        "solemnityType": "Memorial",
+        "prevEvening": "true"
+      }
+    },
+	
+    {
+      "feast": {
+        "name": "30/12",
+        "eTitle": "Holy Family",
+        "vTitle": "Lễ Thánh Gia Thất",
+        "solemnityType": "Feast",
+        "prevEvening": "true"
+      }
+    },
+	
+*/	

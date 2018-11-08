@@ -1,0 +1,33 @@
+{"seasons":[
+	{"season":"advent", "days":[
+			{"day":"1", "sections":[{"section":"intro", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"praise", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"wordOfGod", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"response", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"songsOfPrayer", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"prayers", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"conclusion", "dir":"easter", "id":"1", "filename":"blah.txt"}]},
+			{"day":"1", "sections":[{"section":"intro", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"praise", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"wordOfGod", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"response", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"songsOfPrayer", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"prayers", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"conclusion", "dir":"easter", "id":"1", "filename":"blah.txt"}]}]},
+	{"season":"xmas", "days":[
+			{"day":"1", "sections":[{"section":"intro", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"praise", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"wordOfGod", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"response", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"songsOfPrayer", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"prayers", "dir":"easter", "id":"1", "filename":"blah.txt"},
+									{"section":"conclusion", "dir":"easter", "id":"1", "filename":"blah.txt"}]},
+			{"day":"7", "sections":[{"section":"intro", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"praise", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"wordOfGod", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"response", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"songsOfPrayer", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"prayers", "dir":"easter", "id":"7", "filename":"blah.txt"},
+									{"section":"conclusion", "dir":"easter", "id":"7", "filename":"blah.txt"}]}]}
+	]
+}

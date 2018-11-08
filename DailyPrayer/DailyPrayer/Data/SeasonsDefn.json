@@ -1,0 +1,10 @@
+﻿{"seasons":[
+	{"season":"advent", "dateStart":"20151111", "dateEnd":"20160228"},
+	{"season":"christmas", "dateStart":"20151225", "dateEnd":"20160228"},
+	{"season":"OT1", "dateStart":"20160111", "dateEnd":"20160228"},
+	{"season":"lent", "dateStart":"20160210", "dateEnd":"20160228"},
+	{"season":"Easter", "dateStart":"20160401", "dateEnd":"20160228"},
+	{"season":"ordinaryTime2", "dateStart":"20160515", "dateEnd":"20160228"}
+	]
+}
+

@@ -1,0 +1,14 @@
+<p>
+<font color ="red"><b>Kết Thúc</b></font>
+</p>
+<table style="font-size:{0}px">
+<tr><td style="vertical-align:top"><font color="red"><b>Chủ sự</b></font> </td>
+	<td style="vertical-align:top">Xin Thiên Chúa toàn năng</td></tr>
+<tr><td></td><td>ban phuc lành cho tất cả chúng ta,</td></tr>
+<tr><td></td><td>xin Người che chở tất cả chúng ta khỏi mọi sự dữ,</td></tr>
+<tr><td></td><td>và dẫn đưa chúng ta đến sự sống muôn đời.</td></tr>
+<tr><td  style="vertical-align:bottom"><font color="red"><b>Cộng đoàn </b></font> &nbsp; </td>
+	<td style="vertical-align:bottom">A-men.</td></tr>
+</table>
+</body>
+</html>

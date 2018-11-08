@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DailyPrayer.ContactPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:Xam.Behaviors;assembly=Xam.Behaviors"
+    xmlns:local="clr-namespace:DailyPrayer;assembly=DailyPrayer"
+    Title="Email">
+
+    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
+        <Label
+            x:Name="topText"
+            Margin="10,5,10,0"
+            Text="Cho địa chỉ email vào đây, hay ở cuối trang, rồi click gởi."
+            TextColor="#007AFF" />
+
+        <BoxView
+            HeightRequest="1"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center"
+            Color="#007AFF" />
+
+        <StackLayout VerticalOptions="StartAndExpand">
+            <ListView
+                x:Name="listView"
+                HasUnevenRows="false"
+                ItemsSource="{Binding Contacts}"
+                SelectedItem="{Binding ContactSelected, Mode=TwoWay}"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell
+                            Detail="{Binding EmailId}"
+                            DetailColor="Black"
+                            Text="{Binding DisplayName}"
+                            TextColor="#007AFF" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <behaviors:Interaction.Behaviors>
+                    <behaviors:BehaviorCollection>
+                        <behaviors:EventToCommand
+                            Command="{Binding SelectedEmailCommand}"
+                            CommandParameter="{Binding .}"
+                            EventName="ItemTapped"
+                            PassEventArgument="True" />
+                    </behaviors:BehaviorCollection>
+                </behaviors:Interaction.Behaviors>
+            </ListView>
+        </StackLayout>
+
+        <BoxView
+            HeightRequest="2"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center"
+            Color="#007AFF" />
+
+
+        <StackLayout Orientation="Horizontal" VerticalOptions="End">
+            <Grid BackgroundColor="White" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="25*" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    x:Name="EmailLabelText"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="5,0,0,5"
+                    HorizontalOptions="Start"
+                    Text="{Binding MainText}"
+                    TextColor="#007AFF"
+                    VerticalOptions="Center" />
+                <Entry
+                    x:Name="EmailEntry"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,0,0,5"
+                    Keyboard="Email"
+                    PlaceholderColor="Black"
+                    Text="{Binding EmailAddress}"
+                    TextColor="#007AFF"
+                    VerticalOptions="Center" />
+                <Button
+                    x:Name="EmailEnterBtn"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,0,5,5"
+                    Command="{Binding EnteredEmailCommand}"
+                    HorizontalOptions="End"
+                    Text="Gởi"
+                    TextColor="#007AFF" />
+            </Grid>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

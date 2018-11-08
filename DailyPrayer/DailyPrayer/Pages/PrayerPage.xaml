@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DailyPrayer.PrayerPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DailyPrayer.Controls;assembly=DailyPrayer"
+    xmlns:local="clr-namespace:DailyPrayer;assembly=DailyPrayer"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    Title="Trang lời cầu">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <OnPlatform
+                x:Key="Primary"
+                x:TypeArguments="x:String"
+                Android="Primary"
+                iOS="Primary" />
+            <OnPlatform
+                x:Key="Order"
+                x:TypeArguments="x:String"
+                Android="Secondary"
+                iOS="Secondary" />
+            <OnPlatform
+                x:Key="Larger"
+                x:TypeArguments="x:String"
+                Android="+"
+                iOS="+" />
+            <OnPlatform
+                x:Key="Smaller"
+                x:TypeArguments="x:String"
+                Android="-"
+                iOS="-" />
+            <OnPlatform
+                x:Key="Date"
+                x:TypeArguments="x:String"
+                Android="Ngày tháng"
+                iOS="Ngày tháng" />
+            <OnPlatform
+                x:Key="ToEmail"
+                x:TypeArguments="x:String"
+                Android="Email"
+                iOS="Email" />
+
+            <Style x:Key="baseStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="StartAndExpand" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="IsVisible" Value="true" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="#007AFF" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <Style
+                x:Key="SizingStyle"
+                BasedOn="{StaticResource baseStyle}"
+                TargetType="Label">
+                <Setter Property="FontSize" Value="Micro" />
+            </Style>
+            <Style
+                x:Key="LabelStyle"
+                BasedOn="{StaticResource baseStyle}"
+                TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+            </Style>
+            <Style
+                x:Key="ChevronStyle"
+                BasedOn="{StaticResource baseStyle}"
+                TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SmallerTextCommand}"
+            Icon="Minus.png"
+            Priority="0" />
+        <ToolbarItem
+            Command="{Binding LargerTextCommand}"
+            Icon="Plus.png"
+            Priority="1" />
+
+        <!--  Note: NOT using commands but Clicked's  -->
+        <ToolbarItem
+            Name="{StaticResource Date}"
+            Clicked="OnChangeDate"
+            Icon="Date.png"
+            Order="Secondary" />
+        <ToolbarItem
+            Name="{StaticResource ToEmail}"
+            Clicked="OnEmailClicked"
+            Icon="Email.png"
+            Order="Secondary" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout BackgroundColor="White">
+
+        <Grid
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding IsHeadingVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                x:Name="prevBtn"
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalTextAlignment="Start"
+                Style="{StaticResource ChevronStyle}"
+                Text="&lt;&lt;&lt;" />
+            <Label
+                x:Name="titleBtn"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalTextAlignment="Center"
+                LineBreakMode="TailTruncation"
+                MaxLines="3"
+                Style="{StaticResource LabelStyle}"
+                Text="{Binding PrayerDate}" />
+            <Label
+                x:Name="nextBtn"
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalTextAlignment="End"
+                Style="{StaticResource ChevronStyle}"
+                Text="&gt;&gt;&gt;" />
+        </Grid>
+
+        <BoxView
+            HeightRequest="1"
+            HorizontalOptions="FillAndExpand"
+            Color="#007AFF" />
+
+        <ActivityIndicator
+            IsRunning="{Binding Busy}"
+            IsVisible="{Binding Busy}"
+            Color="Blue" />
+
+        <DatePicker
+            x:Name="PrayerDatePicker"
+            Date="{x:Static sys:DateTime.Now}"
+            DateSelected="OnDateSelected"
+            HeightRequest="0"
+            HorizontalOptions="Center"
+            IsVisible="false"
+            Unfocused="OnDatePickerGoing"
+            VerticalOptions="CenterAndExpand">
+
+            <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+            <DatePicker.MinimumDate>
+                <sys:DateTime x:FactoryMethod="Parse">
+                    <x:Arguments>
+                        <x:String>Jan 1 2016</x:String>
+                    </x:Arguments>
+                </sys:DateTime>
+            </DatePicker.MinimumDate>
+            <DatePicker.MaximumDate>
+                <sys:DateTime x:FactoryMethod="Parse">
+                    <x:Arguments>
+                        <x:String>Dec 31 2050</x:String>
+                    </x:Arguments>
+                </sys:DateTime>
+            </DatePicker.MaximumDate>
+        </DatePicker>
+
+        <local:ExtendedWebView
+            x:Name="Browser"
+            HorizontalOptions="Fill"
+            Source="{Binding WebViewSource}"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="100" />
+    </StackLayout>
+</ContentPage>
