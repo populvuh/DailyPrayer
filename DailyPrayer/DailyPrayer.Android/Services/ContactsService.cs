@@ -23,14 +23,11 @@ namespace DailyPrayer.Droid.Services
     public class ContactsService : DailyPrayer.Services.IContactsService
     {
         string _Tag = "ContactsService";
-        //private readonly Android.Provider.Contacts.AddressBook _book;
 
         private static ObservableCollection<MobileContact> _contacts;
 
         public ContactsService()
         {
-            //_book = new Xamarin.Contacts.AddressBook(Android.App.Application.Context);
-            //_book = new Xamarin.Contacts.AddressBook(Forms.Context.ApplicationContext);
         }
 
         public async Task<bool> GetPermissionAsync()
@@ -170,110 +167,4 @@ namespace DailyPrayer.Droid.Services
             return _contacts;
         }
     }
-
-
-    /*void FillContacts()
-    {
-        var uri = ContactsContract.Contacts.ContentUri;
-
-        string[] projection = {
-            ContactsContract.Contacts.InterfaceConsts.Id,
-            ContactsContract.Contacts.InterfaceConsts.DisplayName,
-            ContactsContract.Contacts.InterfaceConsts.PhotoId,
-            ContactsContract.CommonDataKinds.Email.Address
-        };
-
-        // ManagedQuery is deprecated in Honeycomb (3.0, API11)
-        //var cursor = activity.ManagedQuery (uri, projection, null, null, null);
-
-        // ContentResolver requires you to close the query yourself
-        //var cursor = activity.ContentResolver.Query(uri, projection, null, null, null);
-
-        // CursorLoader introduced in Honeycomb (3.0, API11)
-        var loader = new CursorLoader(Android.App.Application.Context, uri, projection, null, null, null);
-        var cursor = (ICursor)loader.LoadInBackground();
-
-        List<Contact> contactList = new List<Contact>();
-
-        if (cursor.MoveToFirst())
-        {
-            do
-            {
-                string emailAddress = cursor.GetString(cursor.GetColumnIndex(projection[3]));
-                if (!string.IsNullOrEmpty(emailAddress))
-                {
-                    List<Email> emails = new List<Email>();
-                    Email email = new Email();
-                    email.Address = emailAddress;
-                    emails.Add(email);
-                    contactList.Add(new Contact
-                    {
-                        //Id = cursor.GetLong(cursor.GetColumnIndex(projection[0])),
-                        DisplayName = cursor.GetString(cursor.GetColumnIndex(projection[1])),
-                        //PhotoId = cursor.GetString(cursor.GetColumnIndex(projection[2]))
-                        Emails = emails
-                    });
-                }
-            } while (cursor.MoveToNext());
-        }
-
-        foreach (Contact contact in contactList)
-        {
-            Console.WriteLine($"{contact.DisplayName}, {contact.Emails.FirstOrDefault<Email>().Address}");
-        }
-    }*/
-
-    //const int permissioncode = 25;
-    /*PermissionStatus GetPermission2()
-    {
-
-        var context = Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity ?? Android.App.Application.Context;
-        if (context == null)
-        {
-            Debug.WriteLine("Unable to detect current Activity or App Context. Please ensure Plugin.CurrentActivity is installed in your Android project and your Application class is registering with Application.IActivityLifecycleCallbacks.");
-            return PermissionStatus.Unknown;
-        }
-
-        var activity = Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity;
-        if (activity == null)
-        {
-            Debug.WriteLine("Unable to detect current Activity. Please ensure Plugin.CurrentActivity is installed in your Android project and your Application class is registering with Application.IActivityLifecycleCallbacks.");
-            //foreach (var permission in permissions)
-            //{
-            //    if (results.ContainsKey(permission))
-            //        continue;
-            //    results.Add(permission, PermissionStatus.Unknown);
-            //}
-            //return results;
-        }
-
-        if (ContextCompat.CheckSelfPermission(context,
-                Manifest.Permission.ReadContacts) == Android.Content.PM.Permission.Denied)
-            //return Task.FromResult(PermissionStatus.Denied);
-            return PermissionStatus.Denied;
-        {
-
-            // Should we show an explanation?
-                if (ActivityCompat.ShouldShowRequestPermissionRationale(activity,
-                Manifest.Permission.ReadContacts))
-            {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            }
-            else
-            {
-
-                // No explanation needed, we can request the permission.
-                ActivityCompat.RequestPermissions(activity,
-                    new String[] { Manifest.Permission.ReadContacts },
-                        permissioncode);
-            }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-        }
-    }*/
 }

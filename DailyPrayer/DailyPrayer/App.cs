@@ -19,14 +19,14 @@ namespace DailyPrayer
             Xam.Behaviors.Infrastructure.Init();
 
             var page = FreshMvvm.FreshPageModelResolver.ResolvePageModel<PrayerPageModel>(DateTime.Now.ToString("yyyyMMdd HH:mm"));
-            var nav = new FreshMvvm.FreshNavigationContainer(page);
-            MainPage = nav;
+            MainPage = new FreshMvvm.FreshNavigationContainer(page);
         }
 
         public void SetIOC()
         {
-            FreshIOC.Container.Register<IDatabaseModel, DatabaseModel>();
+            FreshIOC.Container.Register<IPrayerModel, PrayerModel>();
             FreshIOC.Container.Register<IFeastsModel, FeastsModel>();
+            FreshIOC.Container.Register<IDatabaseModel, DatabaseModel>();
             FreshIOC.Container.Register<IDominicanCalender, DominicanCalender>();
         }
 
@@ -44,8 +44,7 @@ namespace DailyPrayer
         {
             // set to today when app resumes
             var page = FreshMvvm.FreshPageModelResolver.ResolvePageModel<PrayerPageModel>(DateTime.Now.ToString("yyyyMMdd HH:mm"));
-            var nav = new FreshMvvm.FreshNavigationContainer(page);
-            MainPage = nav;
+            MainPage = new FreshMvvm.FreshNavigationContainer(page);
         }
 
         public static bool SmallScreen { get; private set; } = false;

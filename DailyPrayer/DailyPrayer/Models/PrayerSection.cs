@@ -10,7 +10,7 @@ using DailyPrayer;
 
 using Debug = System.Diagnostics.Debug;
 
-namespace App1
+namespace DailyPrayer.Models.PrayerSeason
 {
     class PrayerSection
     {

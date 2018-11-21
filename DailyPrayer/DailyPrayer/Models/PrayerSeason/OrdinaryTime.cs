@@ -8,8 +8,7 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     class OrdinaryTime : PrayerSeason
     {
-        //string _fileEnd = "";
-
+        new private const string _Tag = "OrdinaryTime";
 
         public OrdinaryTime(Place place, bool testMode) : base(place, testMode)
         {
@@ -25,7 +24,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string ordFileEnd = CreateOrdFilename();
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -71,6 +70,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.ordinary{1}.refrain{2}.txt", _baseName[PrayerSect.Intro], _week, _dayNo);
@@ -86,81 +86,6 @@ namespace DailyPrayer.Models.PrayerSeason
             return fileDetails;
         }
 
-        /*string LoadPraise(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Praise]);
-            //string fileEnd = string.Format("ordinary{0}.{1}{2}.txt", _week,_sectionOfDay, _dayNo);
-
-            string filename = string.Format("{0}.opening_hymn.{1}", filebase, fileEnd);
-            string text = LoadFile(filename);
-            string psalmsFilename = string.Format("{0}.psalms.{1}", filebase, fileEnd);
-            string refrainsFilename = string.Format("{0}.refrains.{1}", filebase, fileEnd);
-
-            text += LoadRefrainAndPsalms(refrainsFilename, psalmsFilename);
-
-            return text;
-        }
-
-        string LoadWordOfGod(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.WordOfGod]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadResponse(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Response]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadCanticles(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Canticles]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-
-            if (!_name.StartsWith("_7."))
-            {
-                filename = string.Format("{0}.{1}.txt", filebase, (_morning) ? "benedictus" : "magnificat");
-                text += LoadFile(filename);
-            }
-
-            return text;
-        }
-
-        string LoadPrayers(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Prayers]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadConclusion(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Conclusion]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }*/
 
         string CreateOrdFilename()
         {
@@ -184,14 +109,5 @@ namespace DailyPrayer.Models.PrayerSeason
 
             return filename;
         }
-
-        //protected void GetNameAndWeekOrdinaryTime(ref string season, ref string week)
-        //{
-        //    int weekNo = Int32.Parse(_weekNo) % 4;
-        //    if (weekNo == 0)
-        //        weekNo = 4;
-        //    week = string.Format("{0}", weekNo);
-        //    season = "ordinary";
-        //}
     }
 }

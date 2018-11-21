@@ -25,13 +25,27 @@ namespace DailyPrayer.Models
         public FeastInfoObject feast { get; set; }
         static CultureInfo cultureInfo = new CultureInfo("en-AU");
 
-        public FeastDate(string dmy, bool morning, string fname, FeastInfoObject fo)
+        public FeastDate(string dmy_ampm, string fname, FeastInfoObject fo)
         {
-            date = DateTime.Parse(dmy, cultureInfo);
-            am = morning;
+            date = DateTime.Parse(dmy_ampm.Substring(0,10), cultureInfo);
+            am = dmy_ampm.EndsWith("am");
             filename = fname;
             feast = fo;
         }
+
+        public string ToHtmlString()
+        {
+            string htmlText = string.Empty;
+            htmlText += this.date.ToString("u").Replace(" 00:00:00Z", " ");
+            htmlText += ((this.am) ? "am" : "pm") + " &nbsp; &nbsp; ";
+            htmlText += this.feast.SolemnityType + "&nbsp; &nbsp; ";
+            htmlText += this.feast.EnglishTitle + ", &nbsp; &nbsp; ";
+            htmlText += this.feast.Title + ", &nbsp; &nbsp; ";
+            htmlText += this.filename + "<br/>";
+
+            return htmlText;
+        }
+
 
         public override string ToString()
         {
@@ -51,11 +65,11 @@ namespace DailyPrayer.Models
         string _Tag = "FeastsModel";
         bool _test = true;
         IDatabaseModel _databaseModel = null;
-        //DominicanFeasts _dominicanFeasts = null;
-        //IList<DominicanFeasts.FeastDetails> _feasts = null;
         IList<FeastInfoObject> _feastObjects = null;
         TimeSpan _oneDay = new TimeSpan(1, 0, 0, 0);
         string _dateFormat = "dd/MM/yyyy";
+
+        Dictionary<string, IList<FeastDate>> _feastDatesByYear = new Dictionary<string, IList<FeastDate>>();
 
         //private static readonly FeastsModel _instance = new FeastsModel();
 
@@ -90,23 +104,26 @@ namespace DailyPrayer.Models
         {
             // NOTE: this needs making WAY more efficient
             Debug.WriteLine($"{_Tag}.GetFeastForDate( {prayerDate.ToString()} )");
-            IList<FeastDate> feastsForYear = GetFeastsForYear(prayerDate.Year.ToString());
 
-            var feasts4Date = feastsForYear.Where<FeastDate>(d => d.date.Date == prayerDate.Date);      //.FirstOrDefault<FeastDate>();
-            foreach (FeastDate feast in feasts4Date)
+            IList<FeastDate> feastsForYear = null;
+            string year = prayerDate.Year.ToString();
+            // check if we've already calced the feast dates for the year
+            if (_feastDatesByYear.ContainsKey(year))
+                feastsForYear = _feastDatesByYear[year];        // yeppo; just use it
+            else
             {
-                if (prayerDate.Hour < 12)
-                {
-                    if (feast.filename.Contains("morning"))
-                        return feast;
-                } else
-                {
-                    if (feast.filename.Contains("evening"))
-                        return feast;
-                }
+                // noppo; calc feats dates, and save them in dictionary
+                feastsForYear = GetFeastsForYear(prayerDate.Year.ToString());
+                _feastDatesByYear[year] = feastsForYear;
             }
+            bool am = prayerDate.Hour < 12;
 
-            return null;
+
+            var feast4Date = feastsForYear.Where<FeastDate>(d => d.date.Date == prayerDate.Date && d.am == am);
+            if (feast4Date.Count() == 0)
+                return null;
+
+            return feast4Date.First<FeastDate>();
         }
 
 
@@ -115,17 +132,22 @@ namespace DailyPrayer.Models
             IList<FeastDate> feastsForYear = _databaseModel.GetFeastsForYear(year);
             if (feastsForYear.Count == 0)
             {
+                // get feast name etc; NOT dates
                 IList<FeastInfoObject> feasts = _databaseModel.GetFeasts();
                 if (feasts.Count == 0)
                 {
+                    // not found, so load them from the json file
                     feasts = _databaseModel.SetFeasts(GetDominicanFeasts());
                 }
 
                 DominicanCalender dominicanCalender = FreshIOC.Container.Resolve<IDominicanCalender>() as DominicanCalender;
+
+                // get the calender of dominican dates for that year
                 DominicanSeason dominicanSeason = dominicanCalender.GetDominicanSeasonForYear(year);
 
-                IList<FeastDate> feastDates = CreateFeastsForYear(year, dominicanSeason);
+                IList<FeastDateObject> feastDateObjects = CreateFeastsForYear(year, dominicanSeason);
 
+                _databaseModel.SetFeastsForYear(year, feastDateObjects);
                 feastsForYear = _databaseModel.GetFeastsForYear(year);
 
                 if (_test)
@@ -141,6 +163,73 @@ namespace DailyPrayer.Models
 
             return feastsForYear;
         }
+
+        /*public IList<FeastDate> CreateFeastsForYear(string year)
+        {
+            IList<FeastDate> feastsForYear = GetFeastsForYear(year);
+            if (feastsForYear.Count == 0)
+            {
+                // get feast name etc; NOT dates
+                IList<FeastInfoObject> feasts = GetFeasts();
+                if (feasts.Count == 0)
+                {
+                    // not found, so load them from the json file
+                    feasts = SetFeasts(GetDominicanFeasts());
+                }
+
+                DominicanCalender dominicanCalender = FreshIOC.Container.Resolve<IDominicanCalender>() as DominicanCalender;
+
+                // get the calender of dominican dates for that year
+                DominicanSeason dominicanSeason = dominicanCalender.GetDominicanSeasonForYear(year);
+
+                IList<FeastDateObject> feastDateObjects = CreateFeastsForYear(year, dominicanSeason);
+
+                SetFeastsForYear(year, feastDateObjects);
+                feastsForYear = GetFeastsForYear(year);
+
+                if (_test)
+                {
+                    Debug.WriteLine($"{_Tag}.GetFeastForYear( {year} )");
+                    foreach (FeastDate feastDate in feastsForYear)
+                    {
+                        Debug.WriteLine(feastDate.ToString());
+                    }
+                    Debug.WriteLine($"{_Tag}.GetFeastForYear( Fin )");
+                }
+            }
+
+            return feastsForYear;
+        }*/
+
+        DominicanFeasts GetDominicanFeasts()
+        {
+            //Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts()");
+
+            DominicanFeasts dominicanFeasts = null;
+            try
+            {
+                var assembly = typeof(DatabaseModel).GetTypeInfo().Assembly;
+                using (Stream stream = assembly.GetManifestResourceStream("DailyPrayer.Data.Feasts.json"))
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    using (JsonReader reader = new JsonTextReader(sr))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        dominicanFeasts = serializer.Deserialize<DominicanFeasts>(reader);
+                    }
+                    //Debug.WriteLine("Finished loading ParseJsonDominicanFeasts");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts()( {0} ) - error\n{1}\n", ex.Message, ex.StackTrace);
+            }
+            //Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts() - {0}\n", dominicanFeasts.ToString());
+
+            return dominicanFeasts;
+        }
+
+
 
 
         /*There are three ranks of feast in Catholic Church.They are in order Solemnity, Feast and Memorial.
@@ -167,26 +256,25 @@ namespace DailyPrayer.Models
 	        -- Most Sacred Heart of Jesus: Friday after Corpus Christi.
 	        -- Our Lord Jesus Christ, King of the Universe: 34th Sunday of Ordinary Time.
         */
-        public IList<FeastDate> CreateFeastsForYear(string year, DominicanSeason dominicanSeason)
+        public IList<FeastDateObject> CreateFeastsForYear(string year, DominicanSeason dominicanSeason)
         {
             //GetDominicanFeasts();
 
-            IList<FeastDate> feasts = new List<FeastDate>();
+            //IList<FeastDate> feasts = new List<FeastDate>();
             _feastObjects = _databaseModel.GetFeasts();
 
             List<FeastDateObject> feastDateObjects = new List<FeastDateObject>();
-            feastDateObjects.AddRange(CreateFixedFeasts(year, feasts));
-            feastDateObjects.AddRange(CreateMovingFeasts(year, feasts, dominicanSeason));
-
-            _databaseModel.SetFeastsForYear(feastDateObjects);
+            feastDateObjects.AddRange(CreateFixedFeasts(year));
+            feastDateObjects.AddRange(CreateMovingFeasts(year, dominicanSeason));
 
             // debug check that its all worked
             //Debug.WriteLine($"CreateFeastsForYear({year}) - {_databaseModel.FeastsForYearToString(year)}\nFin");
+            Debug.WriteLine($"CreateFeastsForYear({year}) - {feastDateObjects.Count}");
 
-            return feasts;
+            return feastDateObjects;
         }
 
-        List<FeastDateObject> CreateFixedFeasts(string year, IList<FeastDate> feasts)
+        List<FeastDateObject> CreateFixedFeasts(string year)
         {
             List<FeastDateObject> feastDateObjects = new List<FeastDateObject>();
 
@@ -296,7 +384,7 @@ namespace DailyPrayer.Models
             return feastDateObjects;
         }
 
-        List<FeastDateObject> CreateMovingFeasts(string year, IList<FeastDate> feasts, DominicanSeason dominicanSeason)
+        List<FeastDateObject> CreateMovingFeasts(string year, DominicanSeason dominicanSeason)
         {
             /*
             epiphany                - Sunday between 02 / 01 and 08 / 01
@@ -388,7 +476,7 @@ namespace DailyPrayer.Models
             }
 
             FeastDateObject ascensionObject = ascensionDates.ElementAt<FeastDateObject>(ascensionDates.Count-1);
-            DateTime ascensionDate = DateTime.ParseExact(ascensionObject.DayMonthYear, _dateFormat, CultureInfo.InvariantCulture);
+            DateTime ascensionDate = DateTime.ParseExact(ascensionObject.DayMonthYearAmPm.Substring(0,10), _dateFormat, CultureInfo.InvariantCulture);
             pentecostDate = ascensionDate.AddDays(9);
             List<FeastDateObject> feastDates = SetFeastDates(pentecostDate, year, "pentecost", true);
 
@@ -503,34 +591,6 @@ namespace DailyPrayer.Models
             //}
 
             return feastDateObjects;
-        }
-
-        DominicanFeasts GetDominicanFeasts()
-        {
-            //Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts()");
-
-            DominicanFeasts dominicanFeasts = null;
-            try
-            {
-                var assembly = typeof(PrayerPageModel).GetTypeInfo().Assembly;
-                using (Stream stream = assembly.GetManifestResourceStream("DailyPrayer.Data.Feasts.json"))
-                using (StreamReader sr = new StreamReader(stream))
-                {
-                    using (JsonReader reader = new JsonTextReader(sr))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        dominicanFeasts = serializer.Deserialize<DominicanFeasts>(reader);
-                    }
-                    //Debug.WriteLine("Finished loading ParseJsonDominicanFeasts");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts()( {0} ) - error\n{1}\n", ex.Message, ex.StackTrace);
-            }
-            //Debug.WriteLine(_Tag + ".ParseJsonDominicanFeasts() - {0}\n", dominicanFeasts.ToString());
-
-            return dominicanFeasts;
         }
     }
 }

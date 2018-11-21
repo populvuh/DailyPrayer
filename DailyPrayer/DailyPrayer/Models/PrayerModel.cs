@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using DailyPrayer.Models.PrayerSeason;
@@ -13,67 +15,120 @@ using Debug = System.Diagnostics.Debug;
 
 namespace DailyPrayer.Models
 {
-    class PrayerModel
+    public interface IPrayerModel
+    {
+        SortedSet<string> NotFounds { get; set; }
+        string MakePrayer(DateTime date, bool testMode);
+        string MakePrayerSection(DateTime date, PrayerSeason.PrayerSeason.PrayerSect prayerSect);
+    }
+
+    public class PrayerModel : IPrayerModel
     {
         string _Tag = "PrayerModel";
-        bool _testMode = false;
         DominicanCalender _dominicanCalender = null;
-        public static SortedSet<string> NotFounds = new SortedSet<string>();
 
-        private static readonly PrayerModel _instance = new PrayerModel();
-
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
-        static PrayerModel()
+        private SortedSet<string> _NotFounds = new SortedSet<string>();
+        public SortedSet<string> NotFounds
         {
+            get {return _NotFounds; }
+            set { _NotFounds = value; }
         }
 
-        private PrayerModel()
+        private string _prayerHeading;
+        public string PrayerHeading
+        {
+            get { return _prayerHeading; }
+            set
+            {
+                _prayerHeading = value;
+                OnPropertyChanged("PrayerHeading");
+            }
+        }
+
+        public string Filenames { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs(propertyName));
+        }
+
+        public PrayerModel()
         {
             _dominicanCalender = FreshIOC.Container.Resolve<IDominicanCalender>() as DominicanCalender;
         }
 
-        public static PrayerModel Instance
+        public string MakePrayer(DateTime date, bool testMode)
         {
-            get
+            Debug.WriteLine("\nPrayerModel.MakePrayer() - " + date.ToString());
+
+            NotFounds.Clear();
+            Place place = _dominicanCalender.FindPlace(date);
+            PrayerSeason.PrayerSeason prayerSeason = PrayerSeasonFactory.CreatePrayerSeason(place, testMode);
+
+            PrayerHeading = MakeHeading(place, date, prayerSeason);
+
+            string prayerHtml = MakePrayer(date, prayerSeason, testMode);
+
+            if (testMode)
             {
-                return _instance;
+                prayerHtml = "<p/><b><big>Prayer for " + date.ToString("yyyy/MM/dd tt") + "</big><br/>" +
+                    PrayerHeading.Replace("\r\n", "<br/>") + "</b><p/>" + prayerHtml;
+
+                Debug.WriteLine("\n\n"+prayerHtml+ "\n\n");
             }
+            return prayerHtml;
         }
 
-        public SeasonDefn ParseJsonSeasonsDefn()
+        private string MakePrayer(DateTime date, PrayerSeason.PrayerSeason prayerSeason, bool testMode)
         {
-            //Debug.WriteLine(_Tag+".ParseJsonSeasonsDefn()");
-            SeasonDefn seasons = null;
 
+            string htmlText = "";
             try
             {
-                var assembly = typeof(PrayerPageModel).GetTypeInfo().Assembly;
-                using (Stream stream = assembly.GetManifestResourceStream("DailyPrayer.Data.SeasonsDefn.json"))
-                using (StreamReader sr = new StreamReader(stream))
+                FileDetails fileDetails = new FileDetails();
+                fileDetails.Add(prayerSeason.LoadText(PrayerSeason.PrayerSeason.PrayerSect.AllSections));
+
+                if (testMode)
                 {
-                    using (JsonReader reader = new JsonTextReader(sr))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        seasons = serializer.Deserialize<SeasonDefn>(reader);
-                    }
-                    //Debug.WriteLine("Finished loading ParseJsonSeasonsDefn");
+                    htmlText += fileDetails.Filenames() + "<p>";
                 }
+
+                htmlText += fileDetails.PrayerText;
+                htmlText = htmlText.Replace("<p/> <br/>", "<p/>");
+                htmlText = htmlText.Replace("<p/><br/>", "<p/>");
+                htmlText = htmlText.Replace("<p/><br>", "<p/>");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("{2}.ParseJsonWorkflow()( {0} ) - error\n{1}\n", ex.Message, ex.StackTrace, _Tag);
+                Debug.WriteLine($"{_Tag}.MakePrayer: error - {ex.ToString()}");
             }
 
-            return seasons;
+            return htmlText;
         }
 
-        public string MakeDate(DateTime date, PrayerSeason.PrayerSeason prayerSeason)
+        public string MakePrayerSection(DateTime date, PrayerSeason.PrayerSeason.PrayerSect prayerSect)
         {
+            //Debug.WriteLine($"{_Tag}.MakeTestPrayer( date.ToString(_dateFormat) )");
             Place place = _dominicanCalender.FindPlace(date);
+            PrayerSeason.PrayerSeason prayerSeason = PrayerSeasonFactory.CreatePrayerSeason(place, true);
 
-            //PrayerSeason.PrayerSeason*/ prayerSeason = PrayerSeasonFactory.CreatePrayerSeason(place, _testMode);
+            string prayerDate = MakeHeading(place, date, prayerSeason);
+            string dateString = date.ToString("u").Replace(":00Z", "");
+            string htmlText = $"<b>Date: {dateString} </b><br/>";
+            htmlText += prayerSeason.ToString() + "<br/>";
+            htmlText += prayerDate + "<p/>";
 
+            FileDetails fileDetails = new FileDetails();
+            fileDetails.Add(prayerSeason.LoadText(prayerSect));
+            htmlText += fileDetails.PrayerText;
+
+            return htmlText;
+        }
+
+        private string MakeHeading(Place place, DateTime date, PrayerSeason.PrayerSeason prayerSeason)
+        {
             string satSunExtra = "";
             if (!place.Morning)
             {
@@ -100,135 +155,15 @@ namespace DailyPrayer.Models
                 }
             }
 
-            string prayerDate = prayerSeason.VietnameseName(place, satSunExtra);
-            //string prayerDate = prayerSeason.EnglishName(place, satSunExtra);
-            Debug.WriteLine($"{_Tag}.MakeDate: PrayerSeason = {date.ToString()}, {prayerSeason.ToString()}");
+            string prayerHeading = prayerSeason.VietnameseName(place, satSunExtra);
 
-            return prayerDate;
-        }
+            prayerHeading += date.ToString("\r\nyyyy/MM/dd tt");
+            if (App.SmallScreen && prayerHeading.Length >= 65)
+                prayerHeading = prayerHeading.Replace("\r\n", ", ");
 
-        public string MakePrayer(DateTime date, PrayerSeason.PrayerSeason prayerSeason, bool filenamesOnly)
-        {
-            //Debug.WriteLine($"{_Tag}.MakePrayer( {date.ToString()} )");
+            Debug.WriteLine($"{_Tag}.MakeHeading: PrayerSeason = {date.ToString()}, {prayerSeason.ToString()}");
 
-            if (date.Year == 2016 && date.Month == 1 && date.Day == 1)
-                _testMode = !_testMode;
-
-            string htmlText = "";
-            try
-            {
-                FileDetails fileDetails = new FileDetails();
-                fileDetails.Add(prayerSeason.LoadText(PrayerSeason.PrayerSeason.PrayerSect.Ignore));
-
-                if (filenamesOnly)
-                {
-                    //htmlText = prayerSeason.ToString() + "<p>";
-                    htmlText += fileDetails.Filenames() + "<p>";
-                }
-
-                htmlText += fileDetails.PrayerText;
-                htmlText = htmlText.Replace("<p/> <br/>", "<p/>");
-                htmlText = htmlText.Replace("<p/><br/>", "<p/>");
-                htmlText = htmlText.Replace("<p/><br>", "<p/>");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{_Tag}.MakePrayer: error - {ex.ToString()}");
-            }
-
-            return htmlText;
-        }
-
-        public string MakeTestPrayers(DateTime startDate, DateTime endDate, PrayerSeason.PrayerSeason.PrayerSect prayerSect, bool filenamesOnly)
-        {
-            Debug.WriteLine($"PrayerModel.MakeTestPrayer( {startDate.ToString()}, {endDate.ToString()}, {prayerSect.ToString()} )");
-
-            NotFounds.Clear();
-            string htmlText = "";
-            DateTime date = startDate;
-            try
-            {
-                while (date <= endDate)
-                {
-                    htmlText += MakeTestPrayer(date, prayerSect, filenamesOnly);
-
-                    date = date.AddHours(12);
-                }
-            }
-            catch (Exception ex)
-            {
-                htmlText += string.Format($"<p>Error : {ex.Message}<p>on {date.ToString()}");
-            }
-            //htmlText += "</body>/n</html>";
-
-            if (NotFounds.Count > 0)
-            {
-                string notFounds = "<big>Not founds:</big><br/>";
-                foreach (string filename in NotFounds)
-                {
-                    notFounds += filename + "<br/>";
-                }
-                htmlText = notFounds + "<p/>" + htmlText;
-            }
-
-            return htmlText;
-        }
-
-        public string MakeTestPrayers(IList<DateTime> dates)                //PrayerSeason.PrayerSeason.PrayerSect prayerSect)
-        {
-            Debug.WriteLine($"{_Tag}.MakeTestPrayers( {dates.Count} dates )");
-
-            string htmlText = "";
-            foreach (DateTime date in dates)
-            {
-                try
-                {
-                    htmlText += MakeTestPrayer(date, PrayerSeason.PrayerSeason.PrayerSect.Ignore, true);
-                }
-                catch (Exception ex)
-                {
-                    htmlText += string.Format($"<p>Error : {ex.Message}<p>on {date.ToString()}");
-                }
-            }
-
-            if (NotFounds.Count > 0)
-            {
-                string notFounds = "<big>Not founds:</big><br/>";
-                foreach (string filename in NotFounds)
-                {
-                    notFounds += filename + "<br/>";
-                }
-                htmlText = notFounds + "<p/>" + htmlText;
-            }
-
-            return htmlText;
-        }
-
-        private string MakeTestPrayer(DateTime date, PrayerSeason.PrayerSeason.PrayerSect prayerSect, bool filenamesOnly)
-        {
-            //Debug.WriteLine($"{_Tag}.MakeTestPrayer( date.ToString(_dateFormat) )");
-            Place place = _dominicanCalender.FindPlace(date);
-            PrayerSeason.PrayerSeason prayerSeason = PrayerSeasonFactory.CreatePrayerSeason(place, _testMode);
-
-            string prayerDate = MakeDate(date, prayerSeason);
-            string dateString = date.ToString("u").Replace(":00Z", "");
-            string htmlText = $"<b>Date: {dateString} </b><br/>";
-            htmlText += prayerSeason.ToString() + "<br/>";
-            htmlText += prayerDate + "<p/>";
-
-            if (prayerSect == PrayerSeason.PrayerSeason.PrayerSect.Ignore)
-            {
-                string prayerHtml = MakePrayer(date, prayerSeason, filenamesOnly);
-                htmlText += prayerHtml;
-            }
-            else
-            {
-                FileDetails fileDetails = new FileDetails();
-                fileDetails.Add(prayerSeason.LoadText(prayerSect));
-                htmlText += fileDetails.PrayerText;
-            }
-
-            return htmlText;
+            return prayerHeading;
         }
     }
 }

@@ -72,11 +72,13 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
-            Command="{Binding SmallerTextCommand}"
+            Command="{Binding ChangeTextSizeCommand}"
+            CommandParameter="-1"
             Icon="Minus.png"
             Priority="0" />
         <ToolbarItem
-            Command="{Binding LargerTextCommand}"
+            Command="{Binding ChangeTextSizeCommand}"
+            CommandParameter="1"
             Icon="Plus.png"
             Priority="1" />
 
@@ -116,14 +118,14 @@
                 Style="{StaticResource ChevronStyle}"
                 Text="&lt;&lt;&lt;" />
             <Label
-                x:Name="titleBtn"
+                x:Name="prayerHeading"
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalTextAlignment="Center"
                 LineBreakMode="TailTruncation"
                 MaxLines="3"
                 Style="{StaticResource LabelStyle}"
-                Text="{Binding PrayerDate}" />
+                Text="{Binding PrayerHeading}" />
             <Label
                 x:Name="nextBtn"
                 Grid.Row="0"
@@ -150,7 +152,6 @@
             HeightRequest="0"
             HorizontalOptions="Center"
             IsVisible="false"
-            Unfocused="OnDatePickerGoing"
             VerticalOptions="CenterAndExpand">
 
             <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>

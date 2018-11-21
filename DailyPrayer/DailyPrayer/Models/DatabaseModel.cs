@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Realms;
 
 using Debug = System.Diagnostics.Debug;
-using Newtonsoft.Json;
-using System.Threading;
-using System.Globalization;
 
 namespace DailyPrayer.Models
 {
@@ -18,9 +14,10 @@ namespace DailyPrayer.Models
     public class FeastInfoObject : RealmObject
     {
         [PrimaryKey]
-        public string Filename  {  get;  set; }
+        public string Filename { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
+        public string EnglishTitle { get; set; }
         public string SolemnityType { get; set; }
         public bool PrevEvening { get; set; }
 
@@ -29,12 +26,13 @@ namespace DailyPrayer.Models
 
         public FeastInfoObject(DominicanFeasts.DominicanFeast dominicanFeast)
         {
-            Filename = dominicanFeast.feast.name.Replace(@"/","-");
+            Filename = dominicanFeast.feast.name.Replace(@"/", "-");
             Name = dominicanFeast.feast.name;
             if (string.IsNullOrEmpty(Filename))
                 Filename = Name;
 
             Title = dominicanFeast.feast.vTitle;
+            EnglishTitle = dominicanFeast.feast.eTitle;
             SolemnityType = dominicanFeast.feast.solemnityType;
             PrevEvening = dominicanFeast.feast.prevEvening;
         }
@@ -43,13 +41,13 @@ namespace DailyPrayer.Models
         {
             if (string.IsNullOrEmpty(Filename))
                 return Name.Replace(@"/", "-");
-          
+
             return Filename;
         }
 
         public override string ToString()
         {
-            string toString = string.Format($"{Filename}, {Name}, {Title}, {SolemnityType}, {PrevEvening}");
+            string toString = string.Format($"{Filename}, {Name}, {EnglishTitle}, {Title}, {SolemnityType}, {PrevEvening}");
             return toString;
         }
     }
@@ -59,31 +57,32 @@ namespace DailyPrayer.Models
         // for feasts the filename will just b the feast date dd-mm
         // however for variable date solemnities, it will b the filename of the prayers in the feast directories
         [PrimaryKey]
+        public string DayMonthYearAmPm { get; set; }
         public string Filename { get; set; }
-        public string DayMonthYear { get; set; }
         public string Year { get; set; }
         public string FeastKey { get; set; }
-        public DateTimeOffset Date { get; set; }
-        public string AmPm { get; set; }
+        //public DateTimeOffset Date { get; set; }
+        //public string AmPm { get; set; }
         public string EveningId { get; set; }
         CultureInfo cultureInfo = new CultureInfo("en-AU");
 
         public FeastDateObject()
         { }
 
+        //public FeastDateObject(string dmy, string filename, string feastKey, string year, string amPm, string eveningId)
         public FeastDateObject(string dmy, string filename, string feastKey, string year, string amPm, string eveningId)
         {
-            DayMonthYear = dmy;
+            DayMonthYearAmPm = dmy + amPm;
             Filename = filename;
             FeastKey = feastKey;
             Year = year;
-            AmPm = amPm;
+            //AmPm = amPm;
             EveningId = eveningId;
         }
 
         public override string ToString()
         {
-            return string.Format($"{DayMonthYear}, {AmPm}, {Filename}");
+            return string.Format($"{DayMonthYearAmPm}, {Filename}");
         }
     }
 
@@ -92,10 +91,16 @@ namespace DailyPrayer.Models
         IList<FeastInfoObject> GetFeasts();
         IList<FeastInfoObject> SetFeasts(DominicanFeasts dominicanFeasts);
         IList<FeastDate> GetFeastsForYear(string year);
-        bool SetFeastsForYear(IList<FeastDateObject> listFeastDates);
+        bool SetFeastsForYear(string year, IList<FeastDateObject> listFeastDates);
         string FeastsToString();
         string FeastsForYearToString(string year);
         void DeleteAll();
+    }
+
+    public struct WriteFailure
+    {
+        public FeastDateObject FeastDateObj;
+        public string Reason;
     }
 
     public class DatabaseModel : IDatabaseModel
@@ -112,13 +117,23 @@ namespace DailyPrayer.Models
 
         static string _Tag = "DatabaseModel";
         private Realm _realm;
-        public static string _dateFormat = @"yyyy/MM/dd HH:mm:ss";
+        //public static string _dateFormat = @"yyyy/MM/dd HH:mm:ss";
         private bool _bTest = false;
+        private List<WriteFailure> _WriteFailures = new List<WriteFailure>();
+        public List<WriteFailure> WriteFailures
+        {
+            get { return _WriteFailures; }
+            private set { }
+        }
+
 
         public DatabaseModel()
         {
             try
             {
+                // need to do this if we change the schema
+                RealmConfiguration config = new RealmConfiguration();
+                Realm.DeleteRealm(config);
                 _realm = Realm.GetInstance();
 #if DEBUG
                 DeleteAll();                                    // only for debugging
@@ -127,6 +142,10 @@ namespace DailyPrayer.Models
             catch (Exception ex)
             {
                 Debug.WriteLine($"{_Tag}.{_Tag} error: {ex.Message}\n{ex.InnerException}");
+
+                RealmConfiguration config = new RealmConfiguration();
+                Realm.DeleteRealm(config);
+                _realm = Realm.GetInstance();
             }
         }
 
@@ -192,11 +211,11 @@ namespace DailyPrayer.Models
             //Debug.WriteLine($"DatabaseModel.GetFeastsForYear( {year} )");
             //DateTime yearDateTime = new DateTime(Int32.Parse(year), 1, 1);
 
-            // Use LINQ to query
-            //var feastDates = _realm.All<FeastDateObject>().Where(d => d.Year == year);
             // get feast dates for the year
-            IList<FeastDateObject> feastDates = _realm.All<FeastDateObject>().Where(d => d.Year == year).ToList<FeastDateObject>();
-            // get the feast details i.e. the filenames for the feasta 
+            IList<FeastDateObject> feastDates = (string.IsNullOrEmpty(year)) ?
+                _realm.All<FeastDateObject>().ToList<FeastDateObject>() :
+                FeastsForYear(year);
+            // get the feast details i.e. the filenames for the feasts
             IList<FeastInfoObject> feasts = _realm.All<FeastInfoObject>().ToList();
 
             if (_bTest)
@@ -225,7 +244,7 @@ namespace DailyPrayer.Models
                     //Debug.WriteLine("No feast found for " + fdo.FeastKey);
                     continue;
                 }
-                FeastDate feastDate = new FeastDate(fdo.DayMonthYear, (fdo.AmPm == "am"), fdo.Filename, feastDetails);
+                FeastDate feastDate = new FeastDate(fdo.DayMonthYearAmPm, fdo.Filename, feastDetails);
                 listFeastDates.Add(feastDate);
             }
 
@@ -236,16 +255,18 @@ namespace DailyPrayer.Models
             return sortedList;
         }
 
-        public bool SetFeastsForYear(IList<FeastDateObject> listFeastDates)
+
+        public bool SetFeastsForYear(string year, IList<FeastDateObject> listFeastDates)
         {
             bool result = false;
 
-            if (_bTest)
-            {
-                Debug.WriteLine("DatabaseModel.SetFeastsForYear()");
-                foreach (FeastDateObject fdo in listFeastDates)
-                    Debug.WriteLine($"{fdo.ToString()}");
-            }
+            Debug.WriteLine("DatabaseModel.SetFeastsForYear()");
+            foreach (FeastDateObject fdo in listFeastDates)
+                Debug.WriteLine($"{fdo.ToString()}");
+
+#if DEBUG
+            _WriteFailures.Clear();
+#endif
 
             _realm.Write(() =>
             {
@@ -253,21 +274,30 @@ namespace DailyPrayer.Models
                 {
                     try
                     {
-                        var found = _realm.Find<FeastDateObject>(fdo.Filename);
-                        if (found == null)
-                        {
-                            _realm.Add(fdo);
-                        }
+                        _realm.Add(fdo);
                     }
                     catch (Exception ex)
                     {
+#if DEBUG
+                        
+                        _WriteFailures.Add(new WriteFailure() { FeastDateObj=fdo, Reason=ex.Message });
                         Debug.WriteLine("DatabaseModel.SetFeastsForYear: Error - " + ex.Message);
+#endif
                     }
                 }
             });
             result = true;
 
             return result;
+        }
+
+        public List<FeastDateObject> FeastsForYear(string year)
+        {
+            List<FeastDateObject> feastsForYear = (string.IsNullOrEmpty(year)) ?
+                    _realm.All<FeastDateObject>().ToList<FeastDateObject>() :
+                    _realm.All<FeastDateObject>().Where(d => d.Year == year).ToList<FeastDateObject>();
+
+            return feastsForYear;
         }
 
         public string FeastsToString()
@@ -291,7 +321,7 @@ namespace DailyPrayer.Models
                 //String amPm = (fd.am) ? "am" : "pm";
                 String date = fd.date.ToString("yyyy/MM/dd");
                 String amPm = fd.filename.Contains("morning") ? "am" : "pm";
-                String feastString = String.Format($"{date} {amPm} - {fd.feast.SolemnityType}, {fd.feast.Name}, {fd.feast.Title}\n"); 
+                String feastString = String.Format($"{date} {amPm} - {fd.feast.SolemnityType}, {fd.feast.Name}, {fd.feast.Title}\n");
                 toString += feastString;
             }
             toString += "\n";

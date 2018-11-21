@@ -9,22 +9,12 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="PageModels\NewDatePageModel.cs" />
-    <Compile Remove="Pages\NewDatePage.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Pages\NewDatePage.xaml" />
-  </ItemGroup>
-
  <ItemGroup>
     <None Remove="Data\Dates.json" />
     <None Remove="Data\Feasts.json" />
     <None Remove="Data\PrayerDefn.json" />
     <None Remove="Data\PrayerFiles\5.Canticles\benedictus.txt" />
     <None Remove="Data\PrayerFiles\5.Canticles\magnificat.txt" />
-    <None Remove="Data\SeasonsDefn.json" />
     <None Remove="Data\PrayerFiles\ending.txt" />
     <None Remove="Data\PrayerFiles\final_prayer.rtf" />
     <None Remove="Data\PrayerFiles\start.html" />
@@ -551,16 +541,6 @@
     <None Remove="Data\PrayerFiles\2.Praise\psalms\Baptism of the Lord evening.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\Baptism of the Lord morning.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\pentecost.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\19_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\19_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\20_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\20_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\21_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\21_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\22_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\22_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\23_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\23_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\24_Dec_evening.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\24_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\17_31Dec\25_Dec_evening.txt" />
@@ -973,16 +953,6 @@
     <None Remove="Data\PrayerFiles\2.Praise\psalms\xmas2\morning6.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\psalms\xmas2\morning7.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\pentecost.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\19_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\19_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\20_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\20_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\21_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\21_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\22_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\22_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\23_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\23_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\24_Dec_evening.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\24_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\17_31Dec\25_Dec_evening.txt" />
@@ -1443,18 +1413,6 @@
     <None Remove="Data\PrayerFiles\2.Praise\refrains\xmas2\morning5.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\xmas2\morning6.txt" />
     <None Remove="Data\PrayerFiles\2.Praise\refrains\xmas2\morning7.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\17_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\17_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\18_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\18_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\19_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\19_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\20_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\20_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\21_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\21_Dec_morning.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\22_Dec_evening.txt" />
-    <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\22_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\23_Dec_evening.txt" />
     <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\23_Dec_morning.txt" />
     <None Remove="Data\PrayerFiles\3.TheWordOfGod\17_31Dec\24_Dec_evening.txt" />
@@ -4040,7 +3998,6 @@
     <EmbeddedResource Include="Data\PrayerDefn.json" />
     <EmbeddedResource Include="Data\PrayerFiles\5.Canticles\benedictus.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\5.Canticles\magnificat.txt" />
-    <EmbeddedResource Include="Data\SeasonsDefn.json" />
     <EmbeddedResource Include="Data\PrayerFiles\ending.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\final_prayer.rtf" />
     <EmbeddedResource Include="Data\PrayerFiles\start.html" />
@@ -4567,16 +4524,6 @@
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\Baptism of the Lord evening.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\Baptism of the Lord morning.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\pentecost.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\19_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\19_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\20_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\20_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\21_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\21_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\22_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\22_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\23_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\23_Dec_morning.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\24_Dec_evening.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\24_Dec_morning.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\17_31Dec\25_Dec_evening.txt" />
@@ -4989,16 +4936,6 @@
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\xmas2\morning6.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\psalms\xmas2\morning7.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\pentecost.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\19_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\19_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\20_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\20_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\21_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\21_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\22_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\22_Dec_morning.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\23_Dec_evening.txt" />
-    <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\23_Dec_morning.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\24_Dec_evening.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\24_Dec_morning.txt" />
     <EmbeddedResource Include="Data\PrayerFiles\2.Praise\refrains\17_31Dec\25_Dec_evening.txt" />
@@ -8065,11 +8002,5 @@
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="GeolocationPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>

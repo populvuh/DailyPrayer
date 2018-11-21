@@ -10,6 +10,7 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     class Easter : PrayerSeason
     {
+        new private string _Tag = "Easter";
 
         public Easter(Place place, bool testMode) : base(place, testMode)
         {
@@ -21,7 +22,7 @@ namespace DailyPrayer.Models.PrayerSeason
             _fileEnd = string.Format("easter{0}.{1}{2}.txt", _weekNo, _sectionOfDay, _dayNo);
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -49,6 +50,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.easter.morning.txt", _baseName[PrayerSect.Intro]);
@@ -66,6 +68,7 @@ namespace DailyPrayer.Models.PrayerSeason
         protected override FileDetails LoadPraise()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 2. Praise</b><p/>");
             if (_weekNo == "7" && _dayNo == "1" && _morning)
             {
                 // This Ascending morning opening is actually a special refrain for the Sunday when we celebrate Jesus ascending to Heaven.

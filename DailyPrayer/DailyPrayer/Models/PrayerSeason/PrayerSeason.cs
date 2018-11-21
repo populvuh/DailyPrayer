@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using FreshMvvm;
 using Debug = System.Diagnostics.Debug;
 
 namespace DailyPrayer.Models.PrayerSeason
@@ -47,7 +47,7 @@ namespace DailyPrayer.Models.PrayerSeason
 
         public enum PrayerSect
         {
-            Ignore = 0,
+            AllSections = 0,
             Intro = 1,
             Praise,
             WordOfGod,
@@ -115,16 +115,10 @@ namespace DailyPrayer.Models.PrayerSeason
         string _vietAmPrayer = "Kinh Sáng";
         string _vietPmPrayer = "Kinh Chiều";
 
-        //protected string Title
-        //{
-        //    get { return string.Format("</i><b><Font size=+2>{0}</Font></b><br/>", _title); }
-        //}
-
         public PrayerSeason(Place place, bool testMode)
         {
-            //string title = "";
-
             _place = place;
+            _testMode = testMode;
             _baseLen = _base.Length;
             _weekNo = place.WeekNo;
             _week = Int32.Parse(_weekNo) % 4;
@@ -153,42 +147,29 @@ namespace DailyPrayer.Models.PrayerSeason
                                         // baseNames[prayerSect].Replace("_", "") :
                                          baseNames[prayerSect];
             }
-
-
-            //foreach (PrayerSect prayerSect in _baseName.Keys)
-            //{
-            //    Debug.WriteLine($"_baseName[{prayerSect}] == {_baseName[prayerSect]}");
-            //}
-
-            //_testMode = testMode;
-
-            //sections.Add(new IntroSection("_1.Intro", "Introduction", place));
-            //sections.Add(new PraiseSection("_2.Praise", "Praise", place));
-            //sections.Add(new PrayerSection("_3.TheWordOfGod", "Word Of God", place));
-            //sections.Add(new PrayerSection("_4.Response", "Response", place));
-            //sections.Add(new CanticlesSection("_5.Canticles", "Canticles", place));
-            //sections.Add(new PrayerSection("_6.Prayers", "Prayers", place));
-            //sections.Add(new CanticlesSection("_7.Conclusion", "Conclusion", place));
         }
 
         public virtual FileDetails LoadText(PrayerSect pSect)
         {
-            //string text = "";
             FileDetails fileDetails = new FileDetails();
 
             for (PrayerSect prayerSect = PrayerSect.WordOfGod; prayerSect <= PrayerSect.Conclusion; prayerSect++)
             {
-                if (pSect != PrayerSect.Ignore)
+                if (pSect != PrayerSect.AllSections)
                 {
                     if (pSect != prayerSect)
                         continue;
                 }
 
+                if (_testMode)
+                {
+                    fileDetails.AddText("<p/><b>"+prayerSect.ToString()+ "</b><p/>");
+                }
+                    
+
                 if (prayerSect == PrayerSect.Canticles)
                 {
                     fileDetails.Add(LoadCanticles(_fileEnd));
-                    //string filename = string.Format("{0}.{1}.{2}.txt", _base, _baseName[prayerSect], (_morning) ? "benedictus" : "magnificat");
-                    //fileDetails.Add(LoadFile(filename, prayerSect));
                 }
                 else
                 {
@@ -203,6 +184,7 @@ namespace DailyPrayer.Models.PrayerSeason
         protected FileDetails LoadIntro(string filenamePart2)
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             fileDetails.AddText("<b><font color =\"red\">Giáo đầu</font></b><p/>");
             // Load 1.Intro.morning/evening_opening.txt
             string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Intro]);
@@ -212,8 +194,6 @@ namespace DailyPrayer.Models.PrayerSeason
 
             if (_morning)
             {
-                //filename = string.Format("{0}.ascending_morning_refrain.txt", filebase);
-                //fileDetails.Add(LoadFile(filename, PrayerSect.Intro));
                 filename = string.Format("{0}.{1}", _base, filenamePart2);
                 fileDetails.Add(LoadFile(filename, PrayerSect.Intro));
                 fileDetails.Add(LoadPsalm(filebase));
@@ -225,12 +205,14 @@ namespace DailyPrayer.Models.PrayerSeason
         virtual protected FileDetails LoadPraise()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 2. Praise</b><p/>");
+
             string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Praise]);
 
             string openHymnFilename = string.Format("{0}.opening_hymn.{1}", filebase, _fileEnd);
             string psalmsFilename = string.Format("{0}.psalms.{1}", filebase, _fileEnd);
             string refrainsFilename = string.Format("{0}.refrains.{1}", filebase, _fileEnd);
-            Debug.WriteLine($"{_Tag}.LoadPraise({openHymnFilename}, {psalmsFilename}, {refrainsFilename})");
+            Debug.WriteLine($"{_Tag}.LoadPraise({openHymnFilename}, \n\t\t{psalmsFilename}, \n\t\t{refrainsFilename})");
 
             fileDetails.Add(LoadFile(openHymnFilename, PrayerSect.Praise));
             fileDetails.Add(LoadRefrainAndPsalms(refrainsFilename, psalmsFilename));
@@ -244,6 +226,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string filename = string.Format("{0}.{1}", filebase, _fileEnd);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 3. Word Of God</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.WordOfGod));
 
             return fileDetails;
@@ -255,6 +238,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string filename = string.Format("{0}.{1}", filebase, _fileEnd);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 4. Response</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Response));
             //string text = LoadFile(filename);
 
@@ -275,6 +259,7 @@ namespace DailyPrayer.Models.PrayerSeason
             // and we want the intro, and the section which matches the year
             // or, there might not b any sections
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 5. Canticles</b><p/>");
             string[] lines = new string[4];
             string text = ReadFile(filename);
             if (text.StartsWith(FileDetails.Error))
@@ -293,9 +278,6 @@ namespace DailyPrayer.Models.PrayerSeason
             {
                 if (bFirstLine)
                 {
-                    //lines[idx] = "<p/><b><font color =\"red\">";           // bold and red for first line
-                    //lines[idx] += line;
-                    //lines[idx] += "</font></b><p/>";
                     intro = "<p/><b><font color =\"red\">";           // bold and red for first line
                     intro += line;
                     intro += "</font></b><p/>";
@@ -379,17 +361,17 @@ namespace DailyPrayer.Models.PrayerSeason
             canticles += refrain;
             canticles += "<p/>";
 
-            fileDetails.AddText($"<p/>Canticles<br/>");                             // **************
+            //fileDetails.AddText($"<p/>Canticles<br/>");                             // **************
 
             fileDetails.AddText(canticles);
 
-            fileDetails.AddFilename("<p/>"+filename);                                      // **************
+            //fileDetails.AddFilename(filename);                                      // **************
 
             filename = string.Format("{0}.{1}.txt", filebase, (_morning) ? "benedictus" : "magnificat");
-            fileDetails.AddText($"<p/>{filename}<br/>");
+            //fileDetails.AddText($"<p/>{filename}<br/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Canticles));
 
-            fileDetails.AddText($"<p/>Refrain<br/>");                               // **************
+            //fileDetails.AddText($"<p/>Refrain<br/>");                               // **************
             if (!string.IsNullOrEmpty(refrain))
             {
                 fileDetails.AddText(refrain + "<p/>");
@@ -397,11 +379,11 @@ namespace DailyPrayer.Models.PrayerSeason
 
 
             // **************
-            for (int i = 0; i < 3; i++)
-            {
-                fileDetails.AddText($"<p/>Refrain {i + 1}<br/>");
-                fileDetails.AddText(lines[i]);
-            }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    fileDetails.AddText($"<p/>Refrain {i + 1}<br/>");
+            //    fileDetails.AddText(lines[i]);
+            //}
 
             return fileDetails;
         }
@@ -412,6 +394,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string filename = string.Format("{0}.{1}", filebase, _fileEnd);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 6. Prayers</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Prayers));
             //string text = LoadFile(filename);
 
@@ -424,6 +407,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string filename = string.Format("{0}.{1}", filebase, fileEnd);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 7. Prayers</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Conclusion));
             //string text = LoadFile(filename);
 
@@ -432,15 +416,15 @@ namespace DailyPrayer.Models.PrayerSeason
 
         protected FileDetails LoadFile(string filename)
         {
-            return LoadFile(filename, PrayerSect.Ignore);
+            return LoadFile(filename, PrayerSect.AllSections);
         }
 
         protected FileDetails LoadFile(string filename, PrayerSect prayerSect)
         {
             //Debug.WriteLine(_Tag + ".LoadFile( " + filename + ", " + prayerSect.ToString() + " )");
             string text = "";       // "<p/>" + filename.Substring(30) + "<br/>";
-            if (!PrayerPageModel.DisplayFilenamesOnly)
-            {
+            //if (!PrayerPageModel.DisplayFilenamesOnly)
+            //{
                 string fileText = ReadFile(filename);
                 if (fileText.StartsWith(FileDetails.Error))
                 {
@@ -450,7 +434,7 @@ namespace DailyPrayer.Models.PrayerSeason
                 {
                     text += HtmlifyText(fileText, prayerSect);
                 }
-            }
+            //}
             FileDetails fileDetails = new FileDetails();
             fileDetails.Add(filename, text);
 
@@ -476,9 +460,9 @@ namespace DailyPrayer.Models.PrayerSeason
                         {
                             text = sr.ReadToEnd().Trim();
                             text = text.Replace(_doubleLE, _doubleSpacedRN);
+                            text = text.Replace(_doubleSpacedRN, _doubleLE);
                             text = text.Replace(_doubleSpacedLE, _doubleSpacedRN);
                             text = text.Replace(_singleRN, _singleLE);
-                            text = text.Replace(_doubleSpacedRN, _doubleLE );
                             text = text.Replace(_tripleCR, _doubleLE);
                             text = text.Replace(_doubleCR, _doubleLE);
                             text = text.Replace(_doubleR, _doubleLE);
@@ -490,13 +474,13 @@ namespace DailyPrayer.Models.PrayerSeason
             }
             catch (Exception ex)
             {
+                PrayerModel prayerModel = FreshIOC.Container.Resolve<IPrayerModel>() as PrayerModel;
+                prayerModel.NotFounds.Add(filename.Substring(30));
+
                 Debug.WriteLine(filename + ": Error - File not found" + ex.Message);
-                PrayerModel.NotFounds.Add(filename.Substring(30));
                 text = FileDetails.Error + " file not found<br>" + filename.Substring(30) + "<p>";
             }
 
-
-            //Debug.WriteLine($"{_Tag}.ReadFile( {filename} ) - {text.Length}");
             return text;
         }
 
@@ -828,6 +812,7 @@ namespace DailyPrayer.Models.PrayerSeason
             string filename = string.Format("{0}.psalms.{1}", filebase, psalm);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - Psalm</b><p/>");
             fileDetails.Add(LoadFile(filename));
             //string text = LoadFile(filename);
 
@@ -837,6 +822,8 @@ namespace DailyPrayer.Models.PrayerSeason
         protected FileDetails LoadRefrainAndPsalms(string refrainFilename, string psalmsFilename)
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - RefrainAndPsalms</b><p/>");
+
             fileDetails.AddFilename(refrainFilename);
             fileDetails.AddFilename(psalmsFilename);
 
@@ -887,7 +874,7 @@ namespace DailyPrayer.Models.PrayerSeason
                 for (int i = 1; i <= 3; i++)
                 {
                     heading = "I" + heading;
-                    text += "<span style=\"text-decoration: underline; color:red\"><b>" + heading + "</b></span>";
+                    text += "\n\n<span style=\"text-decoration: underline; color:red\"><b>" + heading + "</b></span>\n";
                     //if (_testMode)
                     //    text += "<br/><b>Refrain</b><br/>";
 
@@ -923,13 +910,10 @@ namespace DailyPrayer.Models.PrayerSeason
 
                     //if (i == 3)
                     //    break;
+                    //if (_testMode)  text += "<b>Psalm</b><br/>";
 
-                    if (_testMode)
-                        text += "<b>Psalm</b><br/>";
                     string key = string.Format("{0}.", i);
                     int idx = psalmsText.IndexOf(key);
-                    //if (_testMode2)
-                    //    Debug.WriteLine("Psalms Key: " + key + "\tIdx: " + idx.ToString());
                     if (idx > -1)
                     {
                         idx += 3;                   // add 3 so we skip over the actual bx.
@@ -1008,9 +992,8 @@ namespace DailyPrayer.Models.PrayerSeason
 
             //Debug.WriteLine("{_Tag}.FormatRefrain:\n " + refrain);
 
-            //int lineNo = 1;
-            //int TvcCount = 0;
             bool bFirst = true;
+            //bool bCenterOn = false;
             bool bItalicsOn = false;
             //CultureInfo cultureInfo = new CultureInfo("vi");
             refrain = refrain.Replace("  ", " ").Replace("  ", " ");
@@ -1019,11 +1002,12 @@ namespace DailyPrayer.Models.PrayerSeason
             bool startsWithTvc = refrain.StartsWith("Tv") || refrain.StartsWith("Tc");
 
             string[] verseArray = Regex.Split(refrain, _doubleLE);
-            foreach (string verse in verseArray)
+            foreach (string v in verseArray)
             {
                 //string verse = vrs.Trim().Replace('Đ', 'Ð');                                    // I know they look the same, but they aren't ...
-                if (string.IsNullOrEmpty(verse))
+                if (string.IsNullOrEmpty(v))
                     continue;
+                string verse = v.Trim();
                 bool startsWithDC = verse.StartsWith(_DC);
                 string text2 = "";
 
@@ -1043,11 +1027,12 @@ namespace DailyPrayer.Models.PrayerSeason
                     if (startsWithTvc)
                     {
                         // red and bold 4 first 2 lines, italics 4 rest of verse
-                        text2 += "<center><font color=\"red\"><b>" + lines[0];
+                        //bCenterOn = true;
+                        text2 += "\n<center><font color=\"red\"><b>" + lines[0];
 
                         if (lines.Count() == 1)
                         {
-                            text2 += "</b></font>";
+                            text2 += "</b></font></center>\n";
                         }
                         else
                         {
@@ -1065,7 +1050,7 @@ namespace DailyPrayer.Models.PrayerSeason
                                 text2 += "</i>";
                                 bItalicsOn = false;
                             }
-                            text2 += "<br/>";
+                            text2 += "</center><br/>\n";
                         }
                     }
                     else
@@ -1082,33 +1067,22 @@ namespace DailyPrayer.Models.PrayerSeason
                                 text2 += "<br/>" + lines[i];
                         }
                     }
-
-                    /*if (lines.Length > 1)
-                    {
-                        text2 += "<br/>";
-                        for (int i = 1; i < lines.Length - 1; i++)
-                        {
-                            text2 += lines[i] + "<br/>";
-                        }
-
-                        text2 += lines[lines.Length - 1];
-                    }*/
-                    //if (bFirst)                            // remove italics and red
-                    //if (lineNo == 2)
-                    //    text2 += "</b></font><i>";
-                    //text2 += "<br/>";
                 }
-                //bFirst = false;
                 text += text2;
-                //lineNo++;
-
-                //if (_testMode2)
-                //    Debug.WriteLine("\n\nFormatRefrain\n" + text2);
             }
-            //if (_testMode2)
-            //    Debug.WriteLine("\n\nFormatRefrain2\n" + text);
 
+            if (bItalicsOn)
+            {
+                text += "</i>";
+                bItalicsOn = false;
+            }
+            //if (bCenterOn)
+            //{
+            //    text += "</center><p/>";
+            //    bCenterOn = false;
+            //}
             text += "<p/>";
+
 
             return text;
         }

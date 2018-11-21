@@ -28,7 +28,7 @@ namespace DailyPrayer.Models.PrayerSeason
             //    Debug.WriteLine($"{_Tag}.LoadText: _fileEnd = {_fileEnd}");
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -56,6 +56,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 //string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Intro]);

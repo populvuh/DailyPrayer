@@ -89,7 +89,7 @@ namespace DailyPrayer
 
         private void SetFontSizes()
         {
-            titleBtn.FontSize = (double)Application.Current.Properties["HeadingSize"];
+            prayerHeading.FontSize = (double)Application.Current.Properties["HeadingSize"];
         }
 
         void PinchGesture(object sender, PinchGestureUpdatedEventArgs e)
@@ -101,12 +101,6 @@ namespace DailyPrayer
         {
             System.Diagnostics.Debug.WriteLine($"PrayerPage Command OnDateSelected {args.NewDate.ToString()}");
             MessagingCenter.Send(this, "NewDate", args.NewDate);
-        }
-
-        private void OnDatePickerGoing(object sender, FocusEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine($"PrayerPage Command OnDatePickerGoing");
-            PrayerDatePicker.IsVisible = false;
         }
 
         private void OnChangeDate(object sender, EventArgs e)

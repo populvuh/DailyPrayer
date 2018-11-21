@@ -4,6 +4,8 @@ namespace DailyPrayer.Models.PrayerSeason
     class XMas : PrayerSeason
     {
         new private string _Tag = "Xmas";
+        private string _psalmEnd = "";
+        private string _refrainEnd = "";
 
         public XMas(Place place, bool testMode) : base(place, testMode)
         {
@@ -16,10 +18,16 @@ namespace DailyPrayer.Models.PrayerSeason
             else
                 _fileEnd = string.Format("xmas{0}.{1}{2}.txt", _week, _sectionOfDay, _dayNo);
 
-            System.Diagnostics.Debug.WriteLine($"{_Tag}.LoadText() - FileEnd = {_fileEnd}");
+            _psalmEnd = string.Format("advent{0}.{1}{2}.txt", _week, _sectionOfDay, _dayNo);
+            _refrainEnd = string.Format("_17_31Dec.week{0}.{1}{2}.txt", _week, _sectionOfDay, _dayNo);
+
+
+            if (!string.IsNullOrEmpty(_filename))
+                System.Diagnostics.Debug.WriteLine($"{_Tag}.LoadText({pSect.ToString()}) - _filename = {_filename}");
+            System.Diagnostics.Debug.WriteLine($"{_Tag}.LoadText({pSect.ToString()}) - FileEnd = {_fileEnd}");
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());                                                                        
                 fileDetails.Add(LoadPraise());
@@ -48,6 +56,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.{1}", _baseName[PrayerSect.Intro], _fileEnd);
@@ -63,98 +72,21 @@ namespace DailyPrayer.Models.PrayerSeason
             return fileDetails;
         }
 
-        /*string LoadPraise(string fileEnd)
+        override protected FileDetails LoadPraise()
         {
+            FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 2. Praise</b><p/>");
             string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Praise]);
-            //string fileEnd = string.Format("ordinary{0}.{1}{2}.txt", _week,_sectionOfDay, _dayNo);
 
-            string filename = string.Format("{0}.opening_hymn.{1}", filebase, fileEnd);
-            string text = LoadFile(filename);
-            string psalmsFilename = string.Format("{0}.psalms.{1}", filebase, fileEnd);
-            string refrainsFilename = string.Format("{0}.refrains.{1}", filebase, fileEnd);
+            string openHymnFilename = string.Format("{0}.opening_hymn.{1}", filebase, _fileEnd);
+            string psalmsFilename = string.Format("{0}.psalms.{1}", filebase, _psalmEnd);
+            string refrainsFilename = string.Format("{0}.refrains.{1}", filebase, _refrainEnd);
+            System.Diagnostics.Debug.WriteLine($"{_Tag}.LoadPraise({openHymnFilename}, \n\t\t{psalmsFilename}, \n\t\t{refrainsFilename})");
 
-            return text;
+            fileDetails.Add(LoadFile(openHymnFilename, PrayerSect.Praise));
+            fileDetails.Add(LoadRefrainAndPsalms(refrainsFilename, psalmsFilename));
+
+            return fileDetails;
         }
-
-        string LoadWordOfGod(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.WordOfGod]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadResponse(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Response]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadCanticles(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Canticles]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-            string text = LoadFile(filename);
-
-            filename = string.Format("{0}.{1}.txt", filebase, (_morning) ? "benedictus" : "magnificat");
-            text += LoadFile(filename);
-
-
-            return text;
-
-        }
-
-        string LoadPrayers(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Prayers]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string LoadConclusion(string fileEnd)
-        {
-            string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Conclusion]);
-            string filename = string.Format("{0}.{1}", filebase, fileEnd);
-
-            string text = LoadFile(filename);
-
-            return text;
-
-        }
-
-        string CreateOrdFilename()
-        {
-            //2016 / 01 / 16(Sat) am - Season: OT1, Week: 1, Day: 7, am
-            //DailyPrayer.Data.PrayerFiles._7.Conclusion.ord_weekend1.morning7.txt
-
-            //2016 / 01 / 16(Sat) pm - Season: OT1, Week: 1, Day: 7, pm
-            //DailyPrayer.Data.PrayerFiles._7.Conclusion.ord_weekday1.evening7.txt
-
-            string filename = "";
-            if ((_dayNo == "1") || (_dayNo == "7" && !_morning))
-            {
-                filename = string.Format("{0}.ord_weekend{1}.{2}{3}.txt", _filebase, _weekNo, _sectionOfDay, _dayNo);
-            }
-            else
-            {
-                int weekNo = Int32.Parse(_weekNo) % 4;
-                if (weekNo == 0) weekNo = 4;
-                filename = string.Format("{0}.ord_weekday{1}.{2}{3}.txt", _filebase, weekNo, _sectionOfDay, _dayNo);
-            }
-
-            return filename;
-        }*/
     }
 }

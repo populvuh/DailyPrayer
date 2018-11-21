@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 
 using FreshMvvm;
+
 using Newtonsoft.Json;
-using PropertyChanged;
-using Xamarin.Forms;
 
 using Debug = System.Diagnostics.Debug;
 
@@ -30,13 +28,6 @@ namespace DailyPrayer.Models
         Dictionary<int, int> _OT2StartWeeks = new Dictionary<int, int>();
         List<DominicanSeason> _calender = new List<DominicanSeason>();
 
-        //private static readonly DominicanCalender _instance = new DominicanCalender();
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
-        //static DominicanCalender()
-        //{
-        //}
-
         public DominicanCalender()
         {
             DominicanDates dominicanDates = ParseJsonDominicanDates();
@@ -44,14 +35,6 @@ namespace DailyPrayer.Models
 
             _feastsModel = FreshIOC.Container.Resolve<IFeastsModel>() as FeastsModel;
         }
-
-        //public static DominicanCalender Instance
-        //{
-        //    get
-        //    {
-        //        return _instance;
-        //    }
-        //}
 
         public DominicanSeason GetDominicanSeasonForYear(string year)
         {
@@ -207,6 +190,11 @@ namespace DailyPrayer.Models
                 dateWeekNo = (seasonWeekNo + dateWeekNo) - 1;
 
             int weekNo = (dateWeekNo - seasonWeekNo) + 1;                                           // first week = week1, not week0
+            if (weekNo < 0)
+            {
+                dateWeekNo = (seasonWeekNo + dateWeekNo) - 1;
+                weekNo = (dateWeekNo - seasonWeekNo) + 1;                                           // first week = week1, not week0
+            }
 
             if (place.DomSeason == DailyPrayer.DominicanSeasons.OT2)
             {

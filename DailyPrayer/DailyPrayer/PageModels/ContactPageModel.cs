@@ -133,7 +133,7 @@ namespace DailyPrayer
                 // get a pointer to prayer page so we can retrieve the date details, and the html prayer
                 IPrayer iPrayer = FreshMvvm.FreshIOC.Container.Resolve<IPrayer>();
 
-                string subject = iPrayer.PrayerDate.Replace(" ;", ";").Replace(PrayerSeason._singleLE, "; ");
+                string subject = iPrayer.PrayerHeading.Replace(" ;", ";").Replace(PrayerSeason._singleLE, "; ");
 
                 // Construct HTML email (iOS and Android only) to single receiver without attachments, CC, or BCC.
                 var email = new EmailMessageBuilder()

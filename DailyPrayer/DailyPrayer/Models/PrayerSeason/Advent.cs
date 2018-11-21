@@ -8,6 +8,8 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     class Advent : PrayerSeason
     {
+        new private const string _Tag = "Advent";
+
         public Advent(Place place, bool testMode) : base(place, testMode)
         {
         }
@@ -39,7 +41,7 @@ namespace DailyPrayer.Models.PrayerSeason
             }
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -74,7 +76,7 @@ namespace DailyPrayer.Models.PrayerSeason
                     case PrayerSect.Conclusion:
                         fileDetails.Add(LoadConclusion(_fileEnd));
                         break;
-                    case PrayerSect.Ignore:
+                    case PrayerSect.AllSections:
                     default:
                         break;
                 }
@@ -87,6 +89,7 @@ namespace DailyPrayer.Models.PrayerSeason
         {
             //am/pm opening, am psalm, am refrain.
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 String filenamePart2 = string.Format("{0}.advent.morning.txt", _baseName[PrayerSect.Intro]);
@@ -110,6 +113,7 @@ namespace DailyPrayer.Models.PrayerSeason
                 filename = string.Format("{0}.opening_hymn.{1}", filebase, _fileEnd);
             //string text = LoadFile(filename);
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 2. Praise</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Praise));
 
             int weekNo = Int32.Parse(_weekNo) % 4;
@@ -147,11 +151,10 @@ namespace DailyPrayer.Models.PrayerSeason
                 filename = string.Format("{0}.{1}.{2}", _base, _baseName[PrayerSect.Response], _fileEnd);
 
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 3. Response</b><p/>");
             fileDetails.Add(LoadFile(filename, PrayerSect.Response));
 
             return fileDetails;
         }
-
-
     }
 }

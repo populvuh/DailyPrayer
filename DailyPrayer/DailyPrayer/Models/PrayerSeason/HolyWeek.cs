@@ -10,6 +10,7 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     class HolyWeek : PrayerSeason
     {
+        new private const string _Tag = "HolyWeek";
 
         public HolyWeek(Place place, bool testMode) : base(place, testMode)
         {
@@ -23,7 +24,7 @@ namespace DailyPrayer.Models.PrayerSeason
             _fileEnd = string.Format("holy_week.{0}{1}.txt", _sectionOfDay, _dayNo);
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -51,6 +52,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.holy_week.morning.txt", _baseName[PrayerSect.Intro]);
@@ -69,6 +71,8 @@ namespace DailyPrayer.Models.PrayerSeason
         protected override FileDetails LoadPraise()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 2. Praise</b><p/>");
+
             string filebase = string.Format("{0}.{1}", _base, _baseName[PrayerSect.Praise]);
 
             string filename = string.Format("{0}.opening_hymn.{1}.txt", filebase, _sectionOfDay);       // just morning/evening here
@@ -80,7 +84,5 @@ namespace DailyPrayer.Models.PrayerSeason
 
             return fileDetails;
         }
-
-
     }
 }

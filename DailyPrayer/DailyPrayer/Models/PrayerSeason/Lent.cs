@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//using DailyPrayer.Models.PrayerSections;
 
 namespace DailyPrayer.Models.PrayerSeason
 {
     class Lent : PrayerSeason
     {
+        new private const string _Tag = "Lent";
 
         public Lent(Place place, bool testMode) : base(place, testMode)
         {
@@ -24,7 +19,7 @@ namespace DailyPrayer.Models.PrayerSeason
             _fileEnd = string.Format("lent{0}.{1}{2}.txt", weekNo, _sectionOfDay, _dayNo);
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -52,6 +47,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.lent.morning.txt", _baseName[PrayerSect.Intro]);
@@ -67,7 +63,5 @@ namespace DailyPrayer.Models.PrayerSeason
 
             return fileDetails;
         }
-
-
     }
 }

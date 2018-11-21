@@ -10,6 +10,7 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     class AshWednesdayWeek : PrayerSeason
     {
+        new private const string _Tag = "AshWednesdayWeek";
 
         public AshWednesdayWeek(Place place, bool testMode) : base(place, testMode)
         {
@@ -20,7 +21,7 @@ namespace DailyPrayer.Models.PrayerSeason
             _fileEnd = string.Format("ash_wednesday_week.{0}{1}.txt", _sectionOfDay, _dayNo);
 
             FileDetails fileDetails = new FileDetails();
-            if (pSect == PrayerSect.Ignore)
+            if (pSect == PrayerSect.AllSections)
             {
                 fileDetails.Add(LoadIntro());
                 fileDetails.Add(LoadPraise());
@@ -30,7 +31,7 @@ namespace DailyPrayer.Models.PrayerSeason
             {
                 switch (pSect)
                 {
-                    case PrayerSect.Ignore:
+                    case PrayerSect.AllSections:
                         break;
                     case PrayerSect.Intro:
                         fileDetails.Add(LoadIntro());
@@ -51,6 +52,7 @@ namespace DailyPrayer.Models.PrayerSeason
         FileDetails LoadIntro()
         {
             FileDetails fileDetails = new FileDetails();
+            if (_testMode) fileDetails.AddText($"<p/><b>{_Tag} - 1. Intro</b><p/>");
             if (_morning)
             {
                 string filenamePart2 = string.Format("{0}.ash_wednesday_week.morning.txt", _baseName[PrayerSect.Intro]);

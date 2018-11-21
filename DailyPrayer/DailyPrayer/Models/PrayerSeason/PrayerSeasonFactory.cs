@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DailyPrayer.Models.PrayerSeason
+﻿namespace DailyPrayer.Models.PrayerSeason
 {
     static class PrayerSeasonFactory
     {
