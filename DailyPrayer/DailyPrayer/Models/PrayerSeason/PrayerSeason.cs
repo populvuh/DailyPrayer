@@ -12,11 +12,9 @@ namespace DailyPrayer.Models.PrayerSeason
 {
     public class PrayerSeason
     {
-        int _baseLen = 0;
+        //int _baseLen = 0;
         protected bool _testMode = false;
-        protected bool _testMode2 = false;
         protected string _fileEnd;
-        //protected string _title;
         protected string _weekNo;
         protected string _dayNo;
         protected string _sectionOfDay;
@@ -119,7 +117,7 @@ namespace DailyPrayer.Models.PrayerSeason
         {
             _place = place;
             _testMode = testMode;
-            _baseLen = _base.Length;
+            //_baseLen = _base.Length;
             _weekNo = place.WeekNo;
             _week = Int32.Parse(_weekNo) % 4;
             if (_week == 0)
@@ -460,7 +458,7 @@ namespace DailyPrayer.Models.PrayerSeason
                         {
                             text = sr.ReadToEnd().Trim();
                             text = text.Replace(_doubleLE, _doubleSpacedRN);
-                            text = text.Replace(_doubleSpacedRN, _doubleLE);
+                            //text = text.Replace(_doubleSpacedRN, _doubleLE);
                             text = text.Replace(_doubleSpacedLE, _doubleSpacedRN);
                             text = text.Replace(_singleRN, _singleLE);
                             text = text.Replace(_tripleCR, _doubleLE);

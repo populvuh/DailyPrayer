@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 
 using DailyPrayer.Models;
 using DailyPrayer.Models.PrayerSeason;
@@ -76,7 +73,7 @@ namespace DailyPrayer
     {
         #region Constructor
         string _Tag = "PrayerPageModel";
-        private bool _testMode = false;
+        bool _testMode = false;
         static public bool DisplayFilenames = false;
         static public bool DisplayFilenamesOnly = false;
 
@@ -160,7 +157,6 @@ namespace DailyPrayer
             MessagingCenter.Subscribe<PrayerPage, DateTime>(this, "NewDate", (sender, arg) =>
             {
                 Debug.WriteLine("PrayerPageModel.MessagingCenter() - NewDate");
-                //IsDatePickerVisible = false;
 
                 if (_date != arg)
                 {

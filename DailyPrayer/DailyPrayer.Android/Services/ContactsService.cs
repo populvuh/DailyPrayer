@@ -32,7 +32,7 @@ namespace DailyPrayer.Droid.Services
 
         public async Task<bool> GetPermissionAsync()
         {
-            Debug.WriteLine($"{_Tag}.GetPermission()");
+            Debug.WriteLine($"{_Tag}.GetPermissionAsync()");
 
             bool OK = false;
             try
@@ -45,13 +45,10 @@ namespace DailyPrayer.Droid.Services
                         Debug.WriteLine($"{_Tag}.GetPermission() waiting");
                     }
 
-                    Debug.WriteLine($"{_Tag}.GetPermission() - before hang");
-                    //status = (await CrossPermissions.Current.RequestPermissionsAsync(Permission.Contacts))[Permission.Contacts];
                     var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Contacts);
 
                     if (results.ContainsKey(Permission.Contacts))
                         status = results[Permission.Contacts];
-                    Debug.WriteLine($"{_Tag}.GetPermission() - after hang\n");
                 }
 
                 OK = (status == PermissionStatus.Granted);
@@ -66,7 +63,6 @@ namespace DailyPrayer.Droid.Services
 
         public List<MobileContact> FindContacts(string searchString)
         {
-            Debug.WriteLine($"{_Tag}.FindContacts()");
             var ResultContacts = new List<MobileContact>();
 
             foreach (var currentContact in _contacts)
@@ -83,6 +79,7 @@ namespace DailyPrayer.Droid.Services
 
             return ResultContacts;
         }
+
         public async Task<IEnumerable<MobileContact>> GetAllContactsAsync()
         {
             Debug.WriteLine($"{_Tag}.GetAllContactsAsync()");

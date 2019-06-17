@@ -116,7 +116,7 @@
                 Grid.Column="0"
                 HorizontalTextAlignment="Start"
                 Style="{StaticResource ChevronStyle}"
-                Text="&lt;&lt;&lt;" />
+                Text=" &lt;&lt;&lt;" />
             <Label
                 x:Name="prayerHeading"
                 Grid.Row="0"
@@ -132,7 +132,7 @@
                 Grid.Column="2"
                 HorizontalTextAlignment="End"
                 Style="{StaticResource ChevronStyle}"
-                Text="&gt;&gt;&gt;" />
+                Text="&gt;&gt;&gt; " />
         </Grid>
 
         <BoxView

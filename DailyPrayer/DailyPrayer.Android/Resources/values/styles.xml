@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-  <style name="SplashTheme" parent="SplashTheme.Base">
-    <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
-    <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">@color/primary</item>
-    <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <!-- colorAccent is used as the default value for colorControlActivated
-         which is used to tint widgets -->
-    <item name="colorAccent">@color/accent</item>
-  </style>
-  <style name="SplashTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:windowBackground">@drawable/splashscreen</item>
-  </style>
-
   <style name="MyTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowBackground">@drawable/splashscreen</item>
-    <!-- colorPrimary is used for the default action bar background -->
+    <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
-
+  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/primary</item>
+  </style>
 
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
@@ -39,58 +27,9 @@
     <item name="colorAccent">@color/accent</item>
     <item name="windowActionModeOverlay">false</item>
 
-    <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+    <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
-  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#007AFF</item>
-    <item name="android:colorAccent">#007AFF</item>
-    <item name="colorPrimary">@color/primary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-  </style>
-  <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
-    <item name="android:headerBackground">@color/primary</item>
-  </style>
-  <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
-    <item name="colorAccent">#007AFF</item>
-    <item name="android:colorAccent">#007AFF</item>
-    <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
-  </style>  
-  
-  <!--style name="InterstitialZygote" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowActionBar">false</item>
-    <item name="android:windowFullscreen">true</item>
-    <item name="android:windowBackground">@drawable/splashscreen</item>
-  </style>
-
-
-  <style name="AppTheme" parent="Theme.AppCompat">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
-
-
-
-  <style name="Theme.InterstitialZygote2" parent="android:Theme.Holo.Light">
-    <item name="android:windowActionBar">false</item>
-    <item name="android:windowTitleSize">0dp</item>
-    <item name="android:windowBackground">@drawable/splashscreen</item>
-  </style>
-
-  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#FF4081</item>
-  </style>
-
-  <style name="Theme.Splash" parent="android:Theme">
-    <item name="android:windowBackground">@drawable/splashscreen</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowIsTranslucent">false</item>
-    <item name="android:windowIsFloating">false</item>
-    <item name="android:backgroundDimEnabled">true</item>
-  </style-->
-  
   <style name="MyTheme" parent="MyTheme.Base">
   </style>
   <style name="MyTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -100,7 +39,6 @@
     <item name="android:windowBackground">@color/primaryLight</item>
     <item name="windowActionModeOverlay">true</item>      
   </style>
-
 
   <!-- ToolBar -->
   <style name="ToolBarStyle" parent="Theme.AppCompat.Light">
