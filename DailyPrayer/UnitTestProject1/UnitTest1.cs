@@ -56,12 +56,12 @@ namespace UnitTestProject1
 
 
         #region Places
-        [TestMethod, Ignore]
+        [TestMethod]
         public void GeneratePlaces()
         {
             //GeneratePlacesForDates(new DateTime(2018, 6, 1, 6, 0, 0), new DateTime(2019, 6, 1, 6, 0, 0));
             //GeneratePlacesForDates(new DateTime(2019, 6, 1, 6, 0, 0), new DateTime(2020, 6, 1, 6, 0, 0));
-            GeneratePlacesForDates(new DateTime(2022, 6, 1, 6, 0, 0), new DateTime(2023, 6, 1, 6, 0, 0));
+            GeneratePlacesForDates(new DateTime(2045, 1, 1, 6, 0, 0), new DateTime(2046, 1, 1, 6, 0, 0));
         }
 
         private void GeneratePlacesForDates(DateTime startDate, DateTime endDate)
@@ -142,7 +142,7 @@ namespace UnitTestProject1
         }
 
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void GeneratePrayers2()
         {
             try
@@ -155,15 +155,15 @@ namespace UnitTestProject1
 
                 WriteFile("APrayers", startDate, endDate, htmlText);
 
-                startDate = new DateTime(2019, 12, 15, 6, 0, 0);
-                endDate = new DateTime(2020, 1, 31, 18, 0, 0);
-                htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
-                WriteFile("APrayers", startDate, endDate, htmlText);
+                //startDate = new DateTime(2019, 12, 15, 6, 0, 0);
+                //endDate = new DateTime(2020, 1, 31, 18, 0, 0);
+                //htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
+                //WriteFile("APrayers", startDate, endDate, htmlText);
 
-                startDate = new DateTime(2020, 12, 15, 6, 0, 0);
-                endDate = new DateTime(2021, 1, 31, 18, 0, 0);
-                htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
-                WriteFile("APrayers", startDate, endDate, htmlText);
+                //startDate = new DateTime(2020, 12, 15, 6, 0, 0);
+                //endDate = new DateTime(2021, 1, 31, 18, 0, 0);
+                //htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
+                //WriteFile("APrayers", startDate, endDate, htmlText);
             }
             catch (Exception ex)
             {
@@ -172,7 +172,37 @@ namespace UnitTestProject1
             }
         }
 
-        public string MakePrayers(PrayerModel prayerModel, DateTime startDate, DateTime endDate, PrayerSeason.PrayerSect prayerSect)
+        [TestMethod,Ignore]
+        public void GenerateHeadings()
+        {
+            try
+            {
+                PrayerModel prayerModel = FreshIOC.Container.Resolve<IPrayerModel>() as PrayerModel;
+
+                DateTime startDate = new DateTime(2018, 12, 15, 6, 0, 0);
+                DateTime endDate = new DateTime(2019, 1, 31, 18, 0, 0);
+                string htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections, true);
+
+                WriteFile("APrayers", startDate, endDate, htmlText);
+
+                //startDate = new DateTime(2019, 12, 15, 6, 0, 0);
+                //endDate = new DateTime(2020, 1, 31, 18, 0, 0);
+                //htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
+                //WriteFile("APrayers", startDate, endDate, htmlText);
+
+                //startDate = new DateTime(2020, 12, 15, 6, 0, 0);
+                //endDate = new DateTime(2021, 1, 31, 18, 0, 0);
+                //htmlText = MakePrayers(prayerModel, startDate, endDate, PrayerSeason.PrayerSect.AllSections);
+                //WriteFile("APrayers", startDate, endDate, htmlText);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"GeneratePrayers exception: {ex.Message}\n{ex.StackTrace}");
+                WriteErrorFile("GeneratePrayers2", ex);
+            }
+        }
+
+        public string MakePrayers(PrayerModel prayerModel, DateTime startDate, DateTime endDate, PrayerSeason.PrayerSect prayerSect, bool headingsOnly=false)
         {
             Debug.WriteLine($"PrayerModel.MakeTestPrayer( {startDate.ToString()}, {endDate.ToString()}, {prayerSect.ToString()} )");
 
@@ -184,7 +214,7 @@ namespace UnitTestProject1
                 while (date <= endDate)
                 {
                     htmlText += (prayerSect == PrayerSeason.PrayerSect.AllSections) ?
-                        prayerModel.MakePrayer(date, true) :
+                        prayerModel.MakePrayer(date, true, headingsOnly) :
                         prayerModel.MakePrayerSection(date, prayerSect);
                     if (prayerModel.NotFounds.Count > 0)
                         NotFounds.UnionWith(prayerModel.NotFounds);

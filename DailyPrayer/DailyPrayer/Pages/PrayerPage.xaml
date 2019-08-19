@@ -5,41 +5,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:DailyPrayer.Controls;assembly=DailyPrayer"
     xmlns:local="clr-namespace:DailyPrayer;assembly=DailyPrayer"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="Trang lời cầu">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <OnPlatform
-                x:Key="Primary"
-                x:TypeArguments="x:String"
-                Android="Primary"
-                iOS="Primary" />
-            <OnPlatform
-                x:Key="Order"
-                x:TypeArguments="x:String"
-                Android="Secondary"
-                iOS="Secondary" />
-            <OnPlatform
-                x:Key="Larger"
-                x:TypeArguments="x:String"
-                Android="+"
-                iOS="+" />
-            <OnPlatform
-                x:Key="Smaller"
-                x:TypeArguments="x:String"
-                Android="-"
-                iOS="-" />
-            <OnPlatform
-                x:Key="Date"
-                x:TypeArguments="x:String"
-                Android="Ngày tháng"
-                iOS="Ngày tháng" />
-            <OnPlatform
-                x:Key="ToEmail"
-                x:TypeArguments="x:String"
-                Android="Email"
-                iOS="Email" />
+            <OnPlatform x:Key="LargerImage" x:TypeArguments="FileImageSource">
+                <On Platform="Android, iOS" Value="Plus.png" />
+                <On Platform="UWP" Value="Assets/Plus.png" />
+            </OnPlatform>
+            <OnPlatform x:Key="SmallerImage" x:TypeArguments="FileImageSource">
+                <On Platform="Android, iOS" Value="Minus.png" />
+                <On Platform="UWP" Value="Assets/Minus.png" />
+            </OnPlatform>
+            <OnPlatform x:Key="EmailImage" x:TypeArguments="FileImageSource">
+                <On Platform="Android, iOS" Value="Email.png" />
+                <On Platform="UWP" Value="Assets/Email.png" />
+            </OnPlatform>
+            <OnPlatform x:Key="DateImage" x:TypeArguments="FileImageSource">
+                <On Platform="Android, iOS" Value="Date.png" />
+                <On Platform="UWP" Value="Assets/Date.png" />
+            </OnPlatform>
+            <OnPlatform x:Key="Order" x:TypeArguments="x:String">
+                <On Platform="Android, iOS, UWP" Value="Secondary" />
+            </OnPlatform>
+            <OnPlatform x:Key="Larger" x:TypeArguments="x:String">
+                <On Platform="Android, iOS, UWP" Value="+" />
+            </OnPlatform>
+            <OnPlatform x:Key="Smaller" x:TypeArguments="x:String">
+                <On Platform="Android, iOS, UWP" Value="-" />
+            </OnPlatform>
+            <OnPlatform x:Key="Date" x:TypeArguments="x:String">
+                <On Platform="Android, iOS, UWP" Value="Ngày tháng" />
+            </OnPlatform>
+            <OnPlatform x:Key="ToEmail" x:TypeArguments="x:String">
+                <On Platform="Android, iOS, UWP" Value="Email" />
+            </OnPlatform>
 
             <Style x:Key="baseStyle" TargetType="Label">
                 <Setter Property="VerticalOptions" Value="StartAndExpand" />
@@ -72,26 +73,28 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
+            Name="{StaticResource Smaller}"
             Command="{Binding ChangeTextSizeCommand}"
             CommandParameter="-1"
-            Icon="Minus.png"
+            Icon="{StaticResource SmallerImage}"
             Priority="0" />
         <ToolbarItem
+            Name="{StaticResource Larger}"
             Command="{Binding ChangeTextSizeCommand}"
             CommandParameter="1"
-            Icon="Plus.png"
+            Icon="{StaticResource LargerImage}"
             Priority="1" />
 
         <!--  Note: NOT using commands but Clicked's  -->
         <ToolbarItem
             Name="{StaticResource Date}"
             Clicked="OnChangeDate"
-            Icon="Date.png"
+            Icon="{StaticResource DateImage}"
             Order="Secondary" />
         <ToolbarItem
             Name="{StaticResource ToEmail}"
             Clicked="OnEmailClicked"
-            Icon="Email.png"
+            Icon="{StaticResource EmailImage}"
             Order="Secondary" />
     </ContentPage.ToolbarItems>
 
@@ -152,23 +155,11 @@
             HeightRequest="0"
             HorizontalOptions="Center"
             IsVisible="false"
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="CenterAndExpand"
+            MinimumDate="2016/01/01"
+            MaximumDate="2050/12/31">
 
             <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
-            <DatePicker.MinimumDate>
-                <sys:DateTime x:FactoryMethod="Parse">
-                    <x:Arguments>
-                        <x:String>Jan 1 2016</x:String>
-                    </x:Arguments>
-                </sys:DateTime>
-            </DatePicker.MinimumDate>
-            <DatePicker.MaximumDate>
-                <sys:DateTime x:FactoryMethod="Parse">
-                    <x:Arguments>
-                        <x:String>Dec 31 2050</x:String>
-                    </x:Arguments>
-                </sys:DateTime>
-            </DatePicker.MaximumDate>
         </DatePicker>
 
         <local:ExtendedWebView

@@ -18,7 +18,7 @@ namespace DailyPrayer.Models
     public interface IPrayerModel
     {
         SortedSet<string> NotFounds { get; set; }
-        string MakePrayer(DateTime date, bool testMode);
+        string MakePrayer(DateTime date, bool testMode, bool headingsOnly);
         string MakePrayerSection(DateTime date, PrayerSeason.PrayerSeason.PrayerSect prayerSect);
     }
 
@@ -59,7 +59,7 @@ namespace DailyPrayer.Models
             _dominicanCalender = FreshIOC.Container.Resolve<IDominicanCalender>() as DominicanCalender;
         }
 
-        public string MakePrayer(DateTime date, bool testMode)
+        public string MakePrayer(DateTime date, bool testMode, bool headingOnly=false)
         {
             Debug.WriteLine("\nPrayerModel.MakePrayer() - " + date.ToString());
 
@@ -69,7 +69,7 @@ namespace DailyPrayer.Models
 
             PrayerHeading = MakeHeading(place, date, prayerSeason);
 
-            string prayerHtml = MakePrayer(date, prayerSeason, testMode);
+            string prayerHtml = (headingOnly) ? "" : MakePrayer(date, prayerSeason, testMode);
 
             if (testMode)
             {
