@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using DailyPrayer.Models;
 using FreshMvvm;
 using Xamarin.Essentials;
@@ -51,11 +48,11 @@ namespace DailyPrayer
         public static void GetDeviceStats()
         {
             // Get Metrics
-            var metrics = DeviceDisplay.ScreenMetrics;
+            //var metrics = DeviceDisplay.MainDisplayInfo.ScreenMetrics;
 
             // Orientation (Landscape, Portrait, Square, Unknown)
-            var orientation = metrics.Orientation;
-            if (orientation == ScreenOrientation.Landscape)
+            var orientation = DeviceDisplay.MainDisplayInfo.Orientation;
+            if (orientation == DisplayOrientation.Landscape)
             {
                 FontSizeConverter fontSizeConverter = new FontSizeConverter();
                 Application.Current.Properties["HeadingSize"] = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
@@ -63,10 +60,10 @@ namespace DailyPrayer
             }
             else
             {
-                var rotation = metrics.Rotation;                    // Rotation (0, 90, 180, 270)                
-                var width = metrics.Width;                          // Width (in pixels)                
-                var height = metrics.Height;                        // Height (in pixels)                
-                var density = metrics.Density;                      // Screen density
+                var rotation = DeviceDisplay.MainDisplayInfo.Rotation;                    // Rotation (0, 90, 180, 270)                
+                var width = DeviceDisplay.MainDisplayInfo.Width;                          // Width (in pixels)                
+                var height = DeviceDisplay.MainDisplayInfo.Height;                        // Height (in pixels)                
+                var density = DeviceDisplay.MainDisplayInfo.Density;                      // Screen density
 
                 // density == 3/ width<1000
                 SmallScreen = (width < 1000);
@@ -75,7 +72,7 @@ namespace DailyPrayer
             }
             Application.Current.SavePropertiesAsync();
 
-            System.Diagnostics.Debug.WriteLine($"App.GetDeviceStats(): width={metrics.Width}, height={metrics.Height}, density={metrics.Density}");
+            System.Diagnostics.Debug.WriteLine($"App.GetDeviceStats(): width={DeviceDisplay.MainDisplayInfo.Width}, height={DeviceDisplay.MainDisplayInfo.Height}, density={DeviceDisplay.MainDisplayInfo.Density}");
         }
     }
 }

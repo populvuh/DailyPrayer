@@ -55,7 +55,7 @@ namespace DailyPrayer.Controls
             var navPage = new NavigationPage(_menuPage) { Title = "Menu" };
 
             if (!string.IsNullOrEmpty(menuIcon))
-                navPage.Icon = menuIcon;
+                navPage.IconImageSource = menuIcon;
 
             Master = navPage;
         }
